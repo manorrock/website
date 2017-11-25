@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Apache 2.2.x, SSL, mod_proxy and Glassfish 4.1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Apache 2.2.x, SSL, mod_proxy and Glassfish 4.1</h1>
+        <p>
+            This entry is a small refresh about proxying with Apache, SSL, 
+            mod_proxy and Glassfish. It describes the changes that have crept 
+            in if you want to do this for Glassfish 4.1.
+        </p>
+        <h2>Requirements</h2>
+        <ul>
+            <li>Apache 2.2.x</li>
+            <li>SSL</li>
+            <li>mod_proxy</li>
+            <li>mod_rewrite</li>
+            <li>Glassfish 4.1</li>
+        </ul>
+        <h2>Setup</h2>
+        <p>
+            If you are trying to setup the non SSL version, this is not the 
+            correct blog entry for you!
+        </p>
+        <p>
+            Add the following to make Apache proxy to your Glassfish 
+            application:
+        </p>
+        <pre>
+
+    ProxyPreserveHost	on
+    RewriteEngine		on
+
+    RequestHeader Set Proxy-keysize 512
+    RequestHeader Set Proxy-ip %{REMOTE_ADDR}e
+    RequestHeader Set Host www.mysecure.com:443
+
+    RewriteRule ^/myapp$ /myapp/ [R,L]
+    RewriteRule ^/myapp/(.*) http://localhost:8080/myapp/$1 [P,L]
+        </pre>
+        <p>
+            The Host request header and the Proxy-keysize request header
+            together make sure response.sendRedirect works properly if you 
+            proxy from a HTTPS host to a HTTP application server. The Proxy-ip 
+            header gives you access to the original IP-address of the 
+            requester.
+        </p>
+        <p>
+            Rewrite rule #1 takes care of the trailing slash problem; whereas 
+            rewrite rule #2 proxies your requests over to the Glassfish server 
+            running at localhost on port 8080.
+        </p>
+        <p>
+            Add the following attributes to your Glassfish HTTP listener, note
+            this is a setting that has changed since Glassfish V2. Find it now 
+            under Configuration, Network Config, http-listener-x, and then
+            select the HTTP tab, check the checkbox marked "Auth Pass Through".
+        </p>
+        <p>
+            Posted July 11, 2015
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

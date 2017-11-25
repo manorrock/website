@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JSF Tip #28 - Turning logging on JSF up</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>JSF Tip #28 - Turning logging on JSF up</h1>
+        <p>
+            Sometimes when you are working with JSF you might need to 
+            understand what is happening beneath the covers. It could be 
+            because you think a component is misbehaving and you want to make 
+            sure that is the case before you file a bug. To facilitate this you
+            can turn the logging up and in Mojarra there are several loggers
+            that you can use.
+        </p>
+        <p>
+            The following is a non-exhaustive list:
+        </p>
+        <ul>
+            <li>application</li>
+            <li>application.view</li>
+            <li>resource</li>
+            <li>config</li>
+            <li>context</li>
+            <li>facelets.compiler</li>
+            <li>facelets.tag.component</li>
+            <li>facelets.el</li>
+            <li>facelets.tag.meta</li>
+            <li>facelets.tag.ui.composition</li>
+            <li>facelets.tag.ui.decorate</li>
+            <li>facelets.tag.ui.include</li>
+            <li>faclets.facelet</li>
+            <li>facelets.factory</li>
+            <li>flow</li>
+            <li>lifecycle</li>
+            <li>managedbean</li>
+            <li>renderkit</li>
+            <li>taglib</li>
+            <li>timing</li>
+            <li>util</li>
+            <li>flash</li>
+        </ul>
+        <p>
+            So say you want to see what the Flow subsystem is doing, well then
+            you would set the logging for it to FINEST.
+        </p>
+        <pre>
+
+    javax.enterprise.resource.webcontainer.jsf.flow=FINEST
+        </pre>
+        <p>
+            Note how your application server sets this depends on its implementation.
+        </p>
+        <p>
+            Posted October 28, 2013
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

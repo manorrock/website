@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Weblogic Tip #1 - Installing Oracle Weblogic Server using Maven and the Zip distribution</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Weblogic Tip #1 - Installing Oracle Weblogic Server using Maven and the Zip distribution</h1>
+        <p>
+            Have you ever wondered if it is possible to install Oracle Weblogic
+            Server using Maven? Well, it is.
+        </p>
+        <ol>
+            <li>Install the Weblogic plugin</li>
+            <li>Use the Weblogic plugin</li>
+        </ol>
+        <h2>Install the Weblogic plugin</h2>
+        <p>
+            Here is a bit of a chicken and the egg story. You will have to hav
+            e an existing Weblogic install to perform this step. Go to the 
+            $MW_HOME/wlserver/server/lib directory and issue the following 
+            command:
+        </p>
+        <pre>
+
+    mvn install:install-file -Dfile=wls-maven-plugin.jar -DpomFile=pom.xml
+        </pre>
+        <p>
+            That installs the wls-maven-plugin into your local Maven 
+            repository. Now you can use it.
+        </p>
+        <p>
+            Note this step does only need to be done once. Once the plugin is 
+            in your local Maven repository you can keep repeating step #2 below.
+        </p>
+        <h2>Use the Weblogic plugin</h2>
+        <p>
+            Add the following snippet to your POM
+        </p>
+        <pre>
+
+    &lt;build>
+        &lt;plugins>
+            &lt;plugin>
+                &lt;groupId>com.oracle.weblogic&lt;/groupId>
+                &lt;artifactId>wls-maven-plugin&lt;/artifactId>
+                &lt;version>12.1.2.0&lt;/version>
+            &lt;/plugin>
+        &lt;plugins>
+    &lt;/build>
+    &lt;properties>
+        &lt;adminurl>t3://localhost:7001&lt;/adminurl>
+        &lt;domainHome>C:/Wls12.1.2&lt;/domainHome>
+        &lt;middlewareHome>C:/Wls12.1.2&lt;/middlewareHome>
+        &lt;weblogicHome>C:/Wls12.1.2/wlserver&lt;/weblogicHome>
+        &lt;user>admin&lt;/user>
+        &lt;password>yourpassword&lt;/password>
+        &lt;name>${project.build.finalName}&lt;/name>
+        &lt;<failOnError>false&lt;/failOnError>
+        &lt;timeout>60</timeout>
+    &lt;/properties>
+        </pre>
+        <p>
+            Note this blog entry assumes WLS 12.1.2, so replace it with the 
+            appropriate version where necessary.
+        </p>
+        <p>
+            Now in the root directory of the project you can issue the following to install Weblogic:
+        </p>
+        <pre>
+    mvn -N com.oracle.weblogic:wls-maven-plugin:install -DartifactLocation=wls1212_dev.zip
+        </pre>
+        <p>
+            This will install Weblogic into the directories specified in the above properties section.
+        </p>
+        <p>
+            Posted May 21, 2014
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

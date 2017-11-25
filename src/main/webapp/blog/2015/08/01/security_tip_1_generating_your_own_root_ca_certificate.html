@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Security Tip #1 - Generating your own root CA certificate</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Security Tip #1 - Generating your own root CA certificate</h1>
+        <p>
+            If you are interested in creating your own root CA certificate then
+            read on. 
+        </p>
+        <p>
+            The command line below will generate a root CA certificate (who by 
+            their nature are self-signed) with a keysize of 8192 and using the
+            RSA key algorithm and a lifetime of 365 days from the time you
+            issue the command.
+        </p>
+        <p>
+            Additional we say this certificate is a root CA certificate that
+            will be used for certificate and revocation list signing.
+        </p>
+        <pre>
+
+    keytool -keystore my-ca.jks -genkeypair 
+     -alias my-ca -dname "CN=My CA"   
+     -keyalg rsa -keysize 8192 -validity 365 -noprompt 
+     -ext BasicConstraints:critical=CA:true
+     -ext KeyUsage:critical=keyCertSign,cRLSign
+        </pre>
+        <p>
+            As we know that we will need to import the root CA certificate we 
+            will generate a PEM file for it.
+        </p>
+        <pre>
+
+    keytool -exportcert -keystore my-ca.jks -rfc 
+     -alias my-ca > my-ca.pem 
+        </pre>
+        <p>
+            In the next blog entry we will create an intermediate CA so we can 
+            keep the root CA keystore safe.
+        </p>
+        <p>
+            Posted August 1, 2015
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

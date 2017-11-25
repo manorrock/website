@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JSF Tip #19 - Introduction to JSF State Saving</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>JSF Tip #19 - Introduction to JSF State Saving</h1>
+        <p>
+            During the JSF lifecycle state will be restored at the beginning of
+            a request (if any state is available) and state will be saved at
+            the end of a request (if any state is available).
+        </p>
+        <p>
+            Why is it important to know what happens during request processing?
+            Well, if you know how JSF state saving works you can optimize your
+            application to perform better.
+        </p>
+        <p>
+            The next blog entry will describe one of several Java APIs that
+            take part in state saving. See you soon!
+        </p>
+        <p>
+            Posted October 16, 2012
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

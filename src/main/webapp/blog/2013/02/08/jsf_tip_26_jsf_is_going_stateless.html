@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JSF Tip #26 - JSF is going Stateless</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>JSF Tip #26 - JSF is going Stateless</h1>
+        <p>
+            If you have wanted JSF not to store any state now is your chance to
+            try out the stateless mode of JSF.
+        </p>
+        <p>
+            It is as easy as doing the following:
+        </p>
+        <pre>
+
+    &lt;f:view transient="true">
+        Your regular content
+    &lt;/f:view>
+        </pre>
+        <p>
+            And voila you are running stateless.
+        </p>
+        <p>
+            If you decide you do want some state to be kept at the server you
+            can use the @xxxScoped annotations on your beans
+        </p>
+        <p>
+            Be aware that because of the fact that the stateless mode does not
+            keep a view around the @ViewScoped annotation degrades to the same
+            behavior as @RequestScoped.
+        </p>
+        <p>
+            OK I want to try it out, where do I get this version? Grab the 
+            latest 2.1 release from <a href="https://maven.java.net/content/repositories/releases/org/glassfish/javax.faces/">here</a>
+        <p>
+        <p>
+            Please report any bugs you see with this at the regular Mojarra bug
+            tracker!
+        </p>
+        <p>
+            Posted February 8, 2013
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

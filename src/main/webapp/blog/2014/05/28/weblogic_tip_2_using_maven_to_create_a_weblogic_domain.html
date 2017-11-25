@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Weblogic Tip #2 - Using Maven to create a Weblogic domain</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Weblogic Tip #2 - Using Maven to create a Weblogic domain</h1>
+        <p>
+            If you like to automate things you might wonder if it is possible 
+            to create a Weblogic domain using Maven? Indeed that is possible. 
+            See the steps below!
+        </p>
+        <ol>
+            <li>Install the Maven plugin</li>
+            <li>Create the Weblogic domain</li>
+        </ol>
+        <h2>Install the Maven plugin</h2>
+        <p>
+            Please do to step #1 of Weblogic Tip #1
+        </p>
+        <h2>Create the Weblogic domain</h2>
+        <p>
+            Add the following snippet to your POM.
+        </p>
+        <pre>
+
+    &lt;build>
+        &lt;plugins>
+            &lt;plugin>
+                &lt;groupId>com.oracle.weblogic&lt;/groupId>
+                &lt;artifactId>wls-maven-plugin&lt;/artifactId>
+                &lt;version>12.1.2.0&lt;/version>
+            &lt;/plugin>
+        &lt;plugins>
+    &lt;/build>
+    &lt;properties>
+        &lt;adminurl>t3://localhost:7001&lt;/adminurl>
+        &lt;domainHome>C:/Wls12.1.2/user_projects/domains/mydomain&lt;/domainHome>
+        &lt;middlewareHome>C:/Wls12.1.2&lt;/middlewareHome>
+        &lt;weblogicHome>C:/Wls12.1.2/wlserver&lt;/weblogicHome>
+        &lt;user>admin&lt;/user>
+        &lt;password>yourpassword&lt;/password>
+        &lt;name>${project.build.finalName}&lt;/name>
+        &lt;failOnError>false&lt;/failOnError>
+        &lt;timeout>60&lt;/timeout>
+    &lt;/properties>
+        </pre>
+        <p>
+            Note this blog entry assumes WLS 12.1.2, so replace it with the 
+            appropriate version where necessary.
+        </p>
+        <p>
+            Now in the root directory of the project you can issue the 
+            following to create the domain:
+        </p>
+        <pre>
+
+    mvn -N com.oracle.weblogic:wls-maven-plugin:create-domain -Djava.security.egd=file:/dev/./urandom
+        </pre>
+        <p>
+            This will create the domain in 
+            C:/Wls12.1.2/user_projects/domains/mydomain 
+        </p>
+        <p>
+            Posted May 28, 2014
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

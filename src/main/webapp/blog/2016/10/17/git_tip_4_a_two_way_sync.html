@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Git Tip #4 - A 2-way sync</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Git Tip #4 - A 2-way sync</h1>
+        <p>
+            If you want to do a 2-way sync of a particular git branch use the 
+            recipe below.
+        </p>
+        <pre>
+
+    rm -rf sync
+    mkdir sync
+    cd sync
+
+    git --version
+    git init
+    git config credential.helper store
+
+    git remote add one http://username@one.com/repo.git
+    git remote add two http://username@two.com/repo.git
+
+    git pull one master
+    git pull two master
+
+    git push one master
+    git push two master
+
+    git fetch one --tags
+    git fetch two --tags
+
+    git push one --tags
+    git push two --tags
+        </pre>
+        <p>
+            NOTE before you can completely automate the script above you will 
+            have to manually do each of the steps once on the machine you are 
+            going to run the script on. Once that is done you can turn the 
+            automation on.
+        </p>
+        <p>
+            Posted October 17, 2016
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

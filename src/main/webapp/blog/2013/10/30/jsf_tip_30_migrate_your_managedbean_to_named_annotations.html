@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JSF Tip #30 - Migrate your ManagedBean to Named annotations</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>JSF Tip #30 - Migrate your ManagedBean to Named annotations</h1>
+        <p>
+            Since JSF 2.2 we consider the old style @ManagedBean annotation 
+            deprecated, but what now you would say? Well it is pretty 
+            straightforward.
+        </p>
+        <ol>
+            <li>Change @ManagedBean(name="xxx") to @Named("xxx")</li>
+            <li>Change the package imports for your @XXXScoped annotations to the CDI equivalents</li>
+        </ol>
+        <pre>
+
+    From                                To
+
+    javax.faces.bean.ApplicationScoped  javax.enterprise.context.ApplicationScoped
+    javax.faces.bean.RequestScoped      javax.enterprise.context.RequestScoped
+    javax.faces.bean.SessionScoped      javax.enterprise.context.SessionScoped
+    javax.faces.bean.ViewScoped         javax.faces.view.ViewScoped
+        </pre>
+        <p>
+            Note JSF 2.2 supports more scopes, but they are new so they are not
+            mentioned in the table above. Future blog entries will touch on 
+            those new scopes.
+        </p>
+        <p>
+            Posted October 30, 2013
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

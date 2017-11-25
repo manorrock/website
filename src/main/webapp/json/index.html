@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Manorrock JSON</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../manorrock.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Manorrock JSON</h1>
+        <h3>
+            A light weight JSON library
+        </h3>
+        <p>
+            Manorrock JSON is a light weight JSON library that allows you to 
+            manipulate, read and write JsonObjects. It is licensed under a BSD 
+            style license so it is free to use in commercial and non-commercial 
+            projects.
+        </p>
+        <p>
+            The project is available on GitHub at 
+            <a href="https://github.com/manorrock/json">
+                https://github.com/manorrock/json</a>.
+        </p>
+        <h2>Some quick examples</h2>
+        <p>
+            Example #1 - Create a JSON object and add a JSON array to it. And
+            then print it out on the console.
+        </p>
+        <pre>
+
+        JsonObject object = new JsonObject();
+        object.put("strings", new JsonArray());
+        System.out.println(Json.toJson(object)));
+        </pre>
+        <p>
+            Example #2 - Create a JSON object from the string. Get the JSON 
+            number as an int and print it out on the console.
+        </p>
+        <pre>
+
+        JsonObject result = Json.toObject("{\"number\":12345}");
+        JsonNumber number = (JsonNumber) result.get("number");
+        System.out.println(number.intValue()));
+        </pre>
+        <p>
+            Example #3 - Read 2 JSON objects using a Reader.
+        </p>
+        <pre>
+
+        JsonReader reader = new JsonReader(new StringReader("{}{}"));
+        JsonObject object = reader.readObject();
+        System.out.println(object);
+        object = reader.readObject();
+        System.out.println(object);
+        </pre>
+        <p>
+            Example #4 - Write a JSON object to a Writer.
+        </p>
+        <pre>
+
+        StringWriter stringWriter = new StringWriter();
+        JsonWriter writer = new JsonWriter(stringWriter);
+        JsonObject object = new JsonObject();
+        writer.writeObject(object);
+        writer.flush();
+        System.out.println(stringWriter.toString());
+        </pre>
+        <h2>Why are the binaries not available for download?</h2>
+        <p>
+            We believe that if you are using our code for your own purposes you
+            should also build it yourself. As the project itself uses Maven 
+            it should not be hard to build. Just check it out from the Git 
+            repository and build it.
+        </p>
+        <h2>I found a bug how do I get it fixed?</h2>
+        <p>
+            As this is an open source project please issue a pull request with
+            your bug fix. We will evaluate it and see if it is ready for
+            integration.
+        </p>
+        <h2>I need support</h2>
+        <p>
+            To get commercial support, please send an email to 
+            sales@manorrock.com. 
+        </p>
+        <p>
+            <a href="../index.html">Up</a>
+        </p>
+    </body>
+</html>

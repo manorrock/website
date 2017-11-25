@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Integration testing on Weblogic using HtmlUnit and Maven</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <h1>Integration testing on Weblogic using HtmlUnit and Maven</h1>
+        <p>
+            In the previous articles we have concentrated on testing using 
+            Glassfish. But can you use the same recipe to do testing on 
+            Weblogic. The answer is YES, but ..... Yea you know there is always
+            a caveat.
+        </p>
+        <p>
+            First make sure you have Weblogic installed properly. Note I did 
+            the testing with the latest 12c version, so your mileage may vary.
+        </p>
+        <p>
+            Download the <a href="htmlunit6.zip">zip file</a> and follow along.
+            In order for this to work you will have to have Weblogic installed 
+            with an adminstrative username and password of weblogic and you 
+            will have to have it listening on port 7001. Note see the Cargo 
+            documentation if you wish to change any of that.
+        </p>
+        <p>
+            In the POM file you will notice the integration.container.home 
+            property that is where your WLS server is located at, usually 
+            $BEA_HOME/wlserver, and also the integration.container.runtime 
+            which points to the management domain you use for testing, in this 
+            case it is set to ${integration.container.root}/user_projects/domains/base_domain 
+            directory.
+        </p>
+        <p>
+            And the command line to invoke it is quite similar to the ones you 
+            have seen before, see below
+        </p>
+        <pre>
+
+    mvn -Dintegration.skip=false -Dintegration.container.skip=false clean verify
+        </pre>
+        <p>
+            Now you will be able to do integration testing against a Weblogic server. I hope this was helpful!
+        </p>
+        <p>
+            Let me know if there are any questions :)
+        </p>
+        <p>
+            Posted January 5, 2012
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

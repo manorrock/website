@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JSF Tip #40 - Loading resource library contracts from the filesystem</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>JSF Tip #40 - Loading resource library contracts from the filesystem</h1>
+        <p>
+            On the #jsf IRC channel Ryan asked how you can get it so the JSF 
+            runtime loads resource library contracts from the filesystem. This
+            blog entry will show you how. 
+        </p>
+        <p>
+            <i>BE AWARE this code is a proof of concept. To make it production 
+                ready make sure you sanitize incoming resource URLs 
+                thoroughly!</i>
+        </p>
+        <h2>The FilesystemResourceHandler</h2>
+        <pre class="borderTopBottom">
+
+    public class FilesystemResourceHandler extends ResourceHandlerWrapper {
+
+        private final File resourceDirectory;
+
+        private final ResourceHandler resourceHandler;
+
+        public FilesystemResourceHandler(ResourceHandler resourceHandler) {
+            this.resourceHandler = resourceHandler;
+            this.resourceDirectory = new File("/tmp/contracts");
+        }
+
+        @Override
+        public ResourceHandler getWrapped() {
+            return resourceHandler;
+        }
+
+        @Override
+        public Resource createResource(String resourceName, String libraryName) {
+
+            List activeContracts = FacesContext.getCurrentInstance().getResourceLibraryContracts();
+
+            if (!resourceName.startsWith("filesystemResourceHandler")) {
+                if (activeContracts != null) {
+                    for(File file : this.resourceDirectory.listFiles()) {
+                        for (String contract : activeContracts) {
+                            if (contract.equals(file.getName())) {
+                                if (libraryName != null) {
+                                    return new FilesystemResource(resourceDirectory, contract, libraryName, resourceName);
+                                } else {
+                                    return new FilesystemResource(resourceDirectory, contract, null, resourceName);                    
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                resourceName = resourceName.substring(resourceName.indexOf("/") + 1);
+                String contract = resourceName.substring(0, resourceName.indexOf("/"));
+                resourceName = resourceName.substring(resourceName.indexOf("/") + 1);
+                return new FilesystemResource(resourceDirectory, contract, null, resourceName);
+            }
+
+            return resourceHandler.createResource(resourceName, libraryName);
+        }
+
+        @Override
+        public boolean isResourceURL(String url) {
+            if (url.contains("filesystemResourceHandler")) {
+                return true;
+            }
+            return resourceHandler.isResourceURL(url);
+        }
+    }
+        </pre>
+        <h2>The FilesystemResource</h2>
+        <pre class="borderTopBottom">
+
+    public class FilesystemResource extends Resource {
+
+        private final File baseDir;
+
+        private final String contract;
+
+        public FilesystemResource(File baseDir, String contract, String libraryName, String resourceName) {
+            this.baseDir = baseDir;
+            this.contract = contract;
+            setLibraryName(libraryName);
+            setResourceName(resourceName);
+        }
+
+        @Override
+        public InputStream getInputStream() throws IOException {
+            /*
+             * Be aware you need to make sure you clean libraryName and resourceName here,
+             * this code is merely a proof of concept!
+             */
+            File resourceFile = new File(baseDir, 
+                contract + "/" +
+                (getLibraryName() != null ? getLibraryName() + "/" : "") +
+                getResourceName());
+            return new FileInputStream(resourceFile);
+        }
+
+        ...
+        </pre>
+        <h2>The faces-config.xml</h2>
+        <pre class="borderTopBottom">
+
+    &lt;?xml version='1.0' encoding='UTF-8'?>
+
+    &lt;faces-config version="2.2"
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+            http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+        &lt;application>
+            &lt;resource-handler>filesystemrlc.FilesystemResourceHandler&lt;/resource-handler>
+        &lt;/application>
+    &lt;/faces-config>
+        </pre>
+        <p>
+            Posted November 15, 2013
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
