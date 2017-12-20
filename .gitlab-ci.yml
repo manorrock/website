@@ -4,8 +4,9 @@ stages:
 pages:
     stage: deploy
     script:
-        - mkdir public
-        - cp -r src/main/webapp/* public
+        - mkdir .public
+        - cp -r src/main/webapp/* .public
+        - mv .public public
     artifacts:
         paths:
             - public
