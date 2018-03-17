@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Simple JSON serialization</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Simple JSON serialization</h1>
+        <p>
+            As part of Jakarta EE there is the JSON-B library, which also can be
+            used standalone, it allows you to easily serialize Java objects to
+            JSON and deserialize from JSON to Java objeects.
+        </p>
+        <p>
+            The shortest quick and dirty serialization example snippet would be:
+        </p>
+        <pre>
+
+  Jsonb jsonb = JsonBuilder.create();
+  String json = jsonb.toJson(myObject);
+        </pre>
+        <p>
+            The shortest quick and dirty deserialization example snippet would be:
+        </p>
+        <pre>
+
+  Jsonb jsonb = JsonBuilder.create();
+  MyObject myObject = jsonb.fromJson(json, MyObject.class);    
+        </pre>
+        <p>
+            To get the JARs you can add the following maven dependencies to your
+            project:
+        </p>
+        <pre>
+
+  &lt;dependency>
+    &lt;groupId>javax.json.bind&lt;/groupId>
+    &lt;artifactId>javax.json.bind-api&lt;/artifactId>
+    &lt;version>1.0&lt;/version>
+  &lt;/dependency>              
+  &lt;dependency>
+    &lt;groupId>org.eclipse&lt;/groupId>
+    &lt;artifactId>yasson&lt;/artifactId>
+    &lt;version>1.0&lt;/version>
+  &lt;/dependency>
+  &lt;dependency>
+    &lt;groupId>org.glassfish&lt;/groupId>
+    &lt;artifactId>javax.json&lt;/artifactId>
+    &lt;version>1.1&lt;/version>
+  &lt;/dependency>
+        </pre>
+        <p>
+            As you can see it is really simple to use JSON-B.
+        </p>
+        <p>
+            To get more depth about the JSON-B go to its 
+            <a href="http://json-b.net/getting-started.html">website</a>
+        </p>
+        <p>
+            Posted March 17th, 2018
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
