@@ -43,6 +43,11 @@
 public class HelloWorldFunction extends HttpServlet {
 
     /**
+     * Stores the boolean to terminate.
+     */
+    private boolean done = false;
+   
+    /**
      * Process the request.
      *
      * @param request the request.
@@ -56,6 +61,15 @@ public class HelloWorldFunction extends HttpServlet {
         response.setContentType("text/plain");
         PrintWriter writer = response.getWriter();
         writer.println("Hello World");
+    }
+
+    /**
+     * Are we done?
+     * 
+     * @return true if we are, false otherwise.
+     */
+    public boolean isDone() {
+        return done;
     }
 }
         </pre>
