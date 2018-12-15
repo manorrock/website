@@ -61,6 +61,7 @@ public class HelloWorldFunction extends HttpServlet {
         response.setContentType("text/plain");
         PrintWriter writer = response.getWriter();
         writer.println("Hello World");
+        done = true;
     }
 
     /**
