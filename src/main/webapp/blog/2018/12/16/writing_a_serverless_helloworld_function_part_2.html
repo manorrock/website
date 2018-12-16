@@ -5,7 +5,10 @@
         <title>Writing a Serverless HelloWorld function</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
         <script>
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
@@ -38,8 +41,7 @@
             listening on a port. The wrapper class processes standard input and
             writes the result on standard output.
         </p>
-        <pre>
-
+        <pre><code class="java">
 public class HelloWorldFunctionWrapper {
 
     /**
@@ -91,11 +93,12 @@ public class HelloWorldFunctionWrapper {
     }
 }
 
-        </pre>
+        </code></pre>
         <p>
             And this simplifies the Servlet itself to be just the code below.
         </p>
-        <pre>
+        <pre><code>
+
 public class HelloWorldFunction extends HttpServlet {
     
     /**
@@ -115,7 +118,7 @@ public class HelloWorldFunction extends HttpServlet {
     }
 }
 
-        </pre>
+        </code></pre>
         <p>
             This change should make it more suitable to run it within any good
             serverless framework.

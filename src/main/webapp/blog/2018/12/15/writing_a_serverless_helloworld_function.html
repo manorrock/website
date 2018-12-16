@@ -5,7 +5,10 @@
         <title>Writing a Serverless HelloWorld function</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
         <script>
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
@@ -38,8 +41,7 @@
             We will start by creating a Java file named HelloWorldFunction.java 
             in the helloworld package and add the content as described below.
         </p>
-        <pre>
-            
+        <pre><code class="java">
 public class HelloWorldFunction extends HttpServlet {
 
     /**
@@ -73,7 +75,7 @@ public class HelloWorldFunction extends HttpServlet {
         return done;
     }
 }
-        </pre>
+        </code></pre>
         <p>
             For anyone familiar writing Servlets there is nothing really
             exciting happening.
@@ -83,8 +85,7 @@ public class HelloWorldFunction extends HttpServlet {
             Now we are going to make it a bit more exciting by adding the main
             method as shown below.
         </p>
-        <pre>
-            
+        <pre><code class="java">
     /**
      * Main method.
      *
@@ -113,7 +114,7 @@ public class HelloWorldFunction extends HttpServlet {
         }
         System.exit(0);
     }
-        </pre>
+        </code></pre>
         <p>
             The code above exposes the Servlet on port 8080 and waits for the
             a client to connect to it and once the response is done it will 
@@ -125,7 +126,7 @@ public class HelloWorldFunction extends HttpServlet {
             with all dependencies into one JAR so we can process it later with
             the GraalVM native image tool.
         </p>
-        <pre>
+        <pre><code>
 &lt;project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -179,14 +180,13 @@ public class HelloWorldFunction extends HttpServlet {
         &lt;maven.compiler.target>1.8&lt;/maven.compiler.target>
     &lt;/properties>
 &lt;/project>
-        </pre>
+        </code></pre>
         <h2>Create the standalone executable using GraalVM</h2>
         <p>
             To create the standalone executable we will process it with GraalVM
             native-image binary. Add the snippet below to the Maven POM file.
         </p>
-        <pre>
-
+        <pre><code>
 &lt;plugin>
     &lt;groupId>org.apache.maven.plugins&lt;/groupId>
     &lt;artifactId>maven-antrun-plugin&lt;/artifactId>
@@ -211,7 +211,7 @@ public class HelloWorldFunction extends HttpServlet {
         &lt;/execution>
     &lt;/executions>
 &lt;/plugin>            
-        </pre>
+        </code></pre>
         <p>
             Note the GRAALVM_HOME environment variable should be set to point
             to the GraalVM SDK on your machine.
@@ -221,10 +221,9 @@ public class HelloWorldFunction extends HttpServlet {
             Now it is time to generate the binary by executing the command line
             below.
         </p>
-        <pre>
-
+        <pre><code class="bash">
     mvn clean install
-        </pre>
+        </code></pre>
         <p>
             Once the build is done you will find the helloWorld binary in the 
             target directory.
@@ -234,18 +233,16 @@ public class HelloWorldFunction extends HttpServlet {
             From the main project directory you can start it using the command
             line below
         </p>
-        <pre>
-
+        <pre><code>
     ./target/helloWorld            
-        </pre>
+        </code></pre>
         <p>
             Point your browser to http://localhost:8080/ and you should see
             the response as shown as below.
         </p>
-        <pre>
-
+        <pre><code class="bash">
     Hello World
-        </pre>
+        </code></pre>
         <p>
             You will also notice the helloWorld binary terminates after serving
             the response. If you do not want that to happen remove the code 
