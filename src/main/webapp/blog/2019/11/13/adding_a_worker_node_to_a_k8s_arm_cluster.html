@@ -54,11 +54,14 @@
   cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1
         </pre>
         <p>
-            Then turn off your swap using:
+            Then turn off your swap executing the following command lines
         </p>
         <pre>
 
-  dphys-swapfile swapoff && dphys-swapfile uninstall && update-rc.d dphys-swapfile remove
+  dphys-swapfile swapoff
+  dphys-swapfile uninstall
+  update-rc.d dphys-swapfile remove
+  apt purge -y dphys-swapfile
         </pre>
         <p>
             Reboot the worker node using:
