@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Setting up a session sticky Glassfish cluster</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Setting up a session sticky Glassfish cluster</h1>
+        <p>
+            See the Glassfish cluster blog entry for setting up a Glassfish 
+            cluster.
+        </p>
+        <h2>Requirements</h2>
+        <ul>
+            <li>Apache 2.2.x</li>
+            <li>mod_proxy</li>
+            <li>mod_proxy_balancer</li>
+            <li>mod_rewrite</li>
+            <li>Glassfish 2 ur2 +</li>
+        </ul>
+        <h2>Setup</h2>
+        <p>
+            Add the following to make Apache load balance to your Glassfish instances:
+        </p>
+        <pre>
+    
+    RewriteEngine On
+    ProxyRequests Off
+
+    &lt;Proxy *>
+        Order deny,allow
+        Allow from all
+    &lt;/Proxy>
+
+    &lt;Location /balancer-manager>
+        SetHandler balancer-manager
+    &lt;/Location>
+
+    &lt;Proxy balancer://mycluster>
+       BalancerMember http://10.1.1.2:8080 route=w1
+       BalancerMember http://10.1.1.3:8080 route=w2
+       BalancerMember http://10.1.1.4:8080 route=w3
+    &lt;/Proxy>
+
+    &lt;Location /clusterjsp>
+        Order allow,deny
+        Allow from all
+    &lt;/Location>
+
+    ProxyPass /clusterjsp balancer://mycluster/clusterjsp stickysession=JSESSIONID
+        </pre>
+        <p>
+            The next step is to prepare the cluster so it keeps the route. Create a cluster wide JVM option:
+        </p>
+        <pre>
+
+    Name  : jvmRoute
+    Value : ${INSTANCE_ROUTE}
+        </pre>
+        <p>
+            Then for each instance in the cluster, set the appropriate system instance property, eg:
+        </p>
+        <pre>
+
+    Name  : INSTANCE_ROUTE
+    Value : w1
+        </pre>
+        <p>
+            (Glassfish 2)
+        </p>
+        <p>
+            Posted September 14, 2012
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

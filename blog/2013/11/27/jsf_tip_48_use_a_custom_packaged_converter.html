@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JSF Tip #48 - Use a custom packaged converter</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>JSF Tip #48 - Use a custom packaged converter</h1>
+        <p>
+            In the previous blog entry we touched upon packaging a custom 
+            converter. Now we'll describe what you need to do to use it.
+        </p>
+        <p>
+            Add the maven dependency to your project.
+        </p>
+        <pre>
+
+    &lt;dependency>
+        &lt;groupId>myGroupId&lt;/groupId>
+        &lt;artifactId>myPackagedCustomConverter&lt;/artifactId>
+        &lt;version>${project.version}&lt;/version>
+    &lt;/dependency>
+        </pre>
+        <p>
+            And use it.
+        </p>
+        <pre>
+
+    &lt;?xml version='1.0' encoding='UTF-8'?>
+
+    &lt;!DOCTYPE html>
+
+    &lt;html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core">
+        &lt;h:head>
+            &lt;title>Custom Converter - f:converter tag&lt;/title>
+        &lt;/h:head>
+        &lt;h:body>
+            &lt;h2>Custom Converter - f:converter tag&lt;/h2>
+            &lt;p>
+                Below you will see a string that was generated using a custom converter
+                named 'customConverterId'. See the sources for the source for this
+                converter.
+            &lt;/p>
+            &lt;h:outputText value="#{customConverterBean.custom}">
+                &lt;f:converter converterId="customConverterId"/>
+            &lt;/h:outputText>
+        &lt;/h:body>
+    &lt;/html>
+        </pre>
+        <p>
+            Posted November 26, 2013
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

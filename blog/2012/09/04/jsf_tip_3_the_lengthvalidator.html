@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JSF Tip #3 - The LengthValidator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <h1>JSF Tip #3 - The LengthValidator</h1>
+        <p>
+            The LengthValidator is one of the standard validators that is 
+            specified by the JavaServerFaces specification. It allows you to 
+            verify (validate) if the proposed input (submitted value) on a 
+            given component is valid.
+        </p>
+        <p>
+            Say you want to make sure the minimum length of a password is 6 
+            characters and up to 12 characters. The example below describe how 
+            you would put this into a JSF page to make that validation happen.
+        </p>
+        <pre class="borderTopBottom">
+
+    &lt;html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+        &lt;h:inputText value="#{user.password}">
+            &lt;f:validateLength minimum="6" maximum="12" />
+        &lt;/h:inputText>
+    &lt;/html>
+        </pre>
+        <p>
+            The minimum and maximum values mentioned above do not have fixed 
+            values, you can use an EL expression if you have different length 
+            requirements for different usage patterns. Eg.
+        </p>
+        <pre class="borderTopBottom">
+
+    &lt;html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+        &lt;h:inputText value="#{address.zipCode}">
+            &lt;f:validateLength minimum="#{settings.zipCodeMinimum}" maximum="#{settings.zipCodeMaximum}" />
+        &lt;/h:inputText>
+    &lt;/html>
+        </pre>
+        <p>
+            If you want to disable the LengthValidator on a page your can mark 
+            the validator as disabled as follows:
+        </p>
+        <pre class="borderTopBottom">
+
+    &lt;html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+        &lt;h:inputText value="#{user.password}">
+            &lt;f:validateLength disabled="true" minimum="6" maximum="12" />
+        &lt;/h:inputText>
+    &lt;/html>
+        </pre>
+        <p>
+            If you keep an instance of LengthValidator around in your managed 
+            bean you can also use binding to bind that particular instance of 
+            the LengthValidator to the tag on the page like so:
+        </p>
+        <pre class="borderTopBottom">
+
+    &lt;html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+        &lt;h:inputText value="#{user.password}">
+            &lt;f:validateLength binding="#{settings.lengthValidator}" />
+        &lt;/h:inputText>
+    &lt;/html>
+        </pre>
+        <p>
+            And a managed bean that has a method similar to the one below:
+        </p>
+        <pre class="borderTopBottom">
+            
+    public LengthValidator getLengthValidator() {
+        return lengthValidator;
+    }
+        </pre>
+        <p>
+            If you specifically want to attach the validator to a specific 
+            component then you can use the 'for' attribute to target it. Note 
+            this attribute is really helpful when using composite components. 
+            Eg.
+        </p>
+        <pre class="borderTopBottom">
+
+    &lt;html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+        &lt;h:inputText id="myinput" value="#{user.password}">
+            &lt;f:validateLength binding="#{settings.lengthValidator}" for="myinput"/>
+        &lt;/h:inputText>
+    &lt;/html>
+        </pre>
+        <p>
+            Posted September 4, 2012
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

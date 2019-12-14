@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Java Tip #2 - Build a Mac OSX installer</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Java Tip #1 - Build a Mac OSX installer</h1>
+        <p>
+            If you want to distribute your Java application in a Mac OSX 
+            installer and you want to do it using Maven the mini recipe 
+            below will get you started.
+        </p>
+        <pre class="borderTopBottom">
+
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    &lt;modelVersion>4.0.0&lt;/modelVersion>
+    &lt;groupId>com.mycompany&lt;/groupId>
+    &lt;artifactId>myproduct-osx-installer&lt;/artifactId>
+    &lt;version>1.0.0-SNAPSHOT&lt;/version>
+    &lt;packaging>pom&lt;/packaging>
+    &lt;name>MyProduct OS X Installer&lt;/name>
+    &lt;build>
+        &lt;finalName>myproduct-osx-installer&lt;/finalName>
+    &lt;/build>
+    &lt;dependencies>
+        &lt;dependency>
+            &lt;groupId>com.mycompany&lt;/groupId>
+            &lt;artifactId>myproduct-main-jar&lt;/artifactId>
+            &lt;version>${project.version}&lt;/version>
+            &lt;scope>runtime&lt;/scope>
+        &lt;/dependency>
+    &lt;/dependencies>
+    &lt;profiles>
+        &lt;profile>
+            &lt;activation>
+                &lt;os>
+                    &lt;family>mac&lt;/family>
+                &lt;/os>
+            &lt;/activation>
+            &lt;build>
+                &lt;plugins>
+                    &lt;plugin>
+                        &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+                        &lt;artifactId>maven-antrun-plugin&lt;/artifactId>
+                        &lt;version>1.8&lt;/version>
+                        &lt;executions>
+                            &lt;execution>
+                                &lt;phase>generate-resources&lt;/phase>
+                                &lt;configuration>
+                                    &lt;target>
+                                        &lt;mkdir dir="${project.build.directory}/..//package/macosx" />
+                                    &lt;/target>
+                                &lt;/configuration>
+                                &lt;goals>
+                                    &lt;goal>run&lt;/goal>
+                                &lt;/goals>
+                            &lt;/execution>
+                        &lt;/executions>
+                    &lt;/plugin>
+                    &lt;plugin>
+                        &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+                        &lt;artifactId>maven-dependency-plugin&lt;/artifactId>
+                        &lt;version>2.10&lt;/version>
+                        &lt;executions>
+                            &lt;execution>
+                                &lt;id>validate&lt;/id>
+                                &lt;phase>validate&lt;/phase>
+                                &lt;goals>
+                                    &lt;goal>copy-dependencies&lt;/goal>
+                                &lt;/goals>
+                                &lt;configuration>
+                                    &lt;outputDirectory>${project.build.directory}/jars&lt;/outputDirectory>
+                                &lt;/configuration>
+                            &lt;/execution>
+                        &lt;/executions>
+                    &lt;/plugin>
+                    &lt;plugin>
+                        &lt;groupId>org.codehaus.mojo&lt;/groupId>
+                        &lt;artifactId>exec-maven-plugin&lt;/artifactId>
+                        &lt;version>1.5.0&lt;/version>
+                        &lt;executions>
+                            &lt;execution>
+                                &lt;id>prepage-package-1&lt;/id>
+                                &lt;phase>prepare-package&lt;/phase>
+                                &lt;goals>
+                                    &lt;goal>exec&lt;/goal>
+                                &lt;/goals>
+                                &lt;configuration>
+                                    &lt;executable>iconutil&lt;/executable>
+                                    &lt;arguments>
+                                        &lt;argument>-c&lt;/argument>
+                                        &lt;argument>icns&lt;/argument>
+                                        &lt;argument>-o&lt;/argument>
+                                        &lt;argument>${project.build.directory}/../package/macosx/MyProduct.icns&lt;/argument>
+                                        &lt;argument>${project.build.directory}/../src/main/icons/MyProduct.iconset&lt;/argument>
+                                    &lt;/arguments>
+                                &lt;/configuration>
+                            &lt;/execution>
+                            &lt;execution>
+                                &lt;id>prepage-package-2&lt;/id>
+                                &lt;phase>prepare-package&lt;/phase>
+                                &lt;goals>
+                                    &lt;goal>exec&lt;/goal>
+                                &lt;/goals>
+                                &lt;configuration>
+                                    &lt;executable>iconutil&lt;/executable>
+                                    &lt;arguments>
+                                        &lt;argument>-c&lt;/argument>
+                                        &lt;argument>icns&lt;/argument>
+                                        &lt;argument>-o&lt;/argument>
+                                        &lt;argument>${project.build.directory}/../package/macosx/MyProduct-volume.icns&lt;/argument>
+                                        &lt;argument>${project.build.directory}/../src/main/icons/MyProduct.iconset&lt;/argument>
+                                    &lt;/arguments>
+                                &lt;/configuration>
+                            &lt;/execution>
+                            &lt;execution>
+                                &lt;id>package&lt;/id>
+                                &lt;phase>package&lt;/phase>
+                                &lt;goals>
+                                    &lt;goal>exec&lt;/goal>
+                                &lt;/goals>
+                                &lt;configuration>
+                                    &lt;executable>${env.JAVA_HOME}/bin/javapackager&lt;/executable>
+                                    &lt;arguments>
+                                        &lt;argument>-deploy&lt;/argument>
+                                        &lt;argument>-native&lt;/argument>
+                                        &lt;argument>dmg&lt;/argument>
+                                        &lt;argument>-name&lt;/argument>
+                                        &lt;argument>MyProduct&lt;/argument>
+                                        &lt;argument>-appclass&lt;/argument>
+                                        &lt;argument>com.mycompany.MyProductMain&lt;/argument>
+                                        &lt;argument>-srcdir&lt;/argument>
+                                        &lt;argument>${project.build.directory}/jars&lt;/argument> 
+                                        &lt;argument>-srcfiles&lt;/argument>      
+                                        &lt;argument>myproduct-main-jar-${project.version}.jar&lt;/argument>
+                                        &lt;argument>-srcdir&lt;/argument>
+                                        &lt;argument>${project.build.directory}/../src/main/license&lt;/argument>
+                                        &lt;argument>-srcfiles&lt;/argument>
+                                        &lt;argument>LICENSE.txt&lt;/argument>
+                                        &lt;argument>-outdir&lt;/argument>
+                                        &lt;argument>target&lt;/argument>
+                                        &lt;argument>-outfile&lt;/argument>
+                                        &lt;argument>myproduct-osx-installer&lt;/argument>
+                                        &lt;argument>-BlicenseFile=LICENSE.txt&lt;/argument>
+                                        &lt;argument>-v&lt;/argument>
+                                    &lt;/arguments>
+                                &lt;/configuration>
+                            &lt;/execution>
+                        &lt;/executions>
+                    &lt;/plugin>
+                    &lt;plugin>
+                        &lt;groupId>org.codehaus.mojo&lt;/groupId>
+                        &lt;artifactId>build-helper-maven-plugin&lt;/artifactId>
+                        &lt;version>1.10&lt;/version>
+                        &lt;executions>
+                            &lt;execution>
+                                &lt;id>attach-artifacts&lt;/id>
+                                &lt;phase>package&lt;/phase>
+                                &lt;goals>
+                                    &lt;goal>attach-artifact&lt;/goal>
+                                &lt;/goals>
+                                &lt;configuration>
+                                    &lt;artifacts>
+                                        &lt;artifact>
+                                            &lt;file>${project.build.directory}/bundles/MyProduct-1.0.dmg&lt;/file>
+                                            &lt;type>dmg&lt;/type>
+                                        &lt;/artifact>
+                                    &lt;/artifacts>
+                                &lt;/configuration>
+                            &lt;/execution>
+                        &lt;/executions>
+                    &lt;/plugin>
+                &lt;/plugins>
+            &lt;/build>
+        &lt;/profile>
+    &lt;/profiles>
+&lt;/project>
+
+        </pre>
+        <p>
+            And voila you now have a Mac OSX installer!
+        </p>
+        <p>
+            Posted September 30, 2016
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

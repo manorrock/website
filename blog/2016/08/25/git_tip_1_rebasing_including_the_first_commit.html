@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Git Tip #1 - Rebasing including the first commit</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Git Tip #1 - Rebasing including the first commit</h1>
+        <p>
+            Have you ever tried to use git rebase and noticed that it does NOT 
+            work on the first commit in a branch?
+        </p>
+        <p>
+            Is there are way for a rebase to include the first commit?
+        </p>
+        <p>
+            There actually is! Use the following command line:
+        </p>
+        <pre>
+
+    git rebase -i --root
+        </pre>
+        <p>
+            This will trigger an interactive rebase that will include the first
+            commit. Perform the rebase as you normally do.
+        </p>
+        <p>
+            Note that if you decide to push this back to a remote Git 
+            repository be aware you are rewriting your Git history so it will
+            break folks that already have the Git repository pulled down.
+        </p>
+        <p>
+            Posted August 25, 2016
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

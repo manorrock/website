@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Deploying Traefik Ingress Controller on Kubernetes ARM</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Deploying Traefik Ingress Controller on Kubernetes ARM</h1>
+        <p>
+            The YAML file below is a template you can use to deploy Traefik 
+            Ingress Controller on a Kubernetes cluster running on ARM.
+        </p>
+        <p>
+            Note you will have to define your own hostnames (the template uses 
+            host1.internal.local, host2.internal.local and host3.internal.local),
+            your admin email (the template uses letsencrypt@internal.local), and 
+            the host you want Traefik to be placed on (the template uses 
+            lb.internal.local).
+        </p>
+        <pre>
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: traefik
+  namespace: kube-system
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: traefik-role
+rules:
+- apiGroups: [""]
+  resources: ["services", "endpoints", "secrets"]
+  verbs:
+    - get
+    - watch
+    - list
+    - proxy
+    - use
+    - redirect
+- apiGroups:
+    - "extensions"
+  resources:
+    - "ingresses"
+  verbs:
+    - get
+    - watch
+    - list
+    - proxy
+    - use
+    - redirect
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: traefik-role
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: traefik-role
+subjects:
+- kind: ServiceAccount
+  name: traefik
+  namespace: kube-system
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: traefik-https-cfg
+  namespace: kube-system
+data:
+  traefik.toml: |
+    # traefik.toml
+    defaultEntryPoints = ["http","https"]
+    [entryPoints]
+      [entryPoints.http]
+      address = ":80"
+      [entryPoints.http.redirect]
+      entryPoint = "https"
+      [entryPoints.https]
+      address = ":443"
+      [entryPoints.https.tls]
+    [acme]
+    email = "letsencrypt@internal.local"
+    storage = "/etc/traefik/acme.json"
+    entryPoint = "https"
+    onDemand = true
+    onHostRule = true
+    caServer = "https://acme-v01.api.letsencrypt.org/directory"
+    [[acme.domains]]
+    main = "host1.internal.local"
+    sans = ["host2.internal.local", "host3.internal.local"]
+---
+apiVersion: v1
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: traefik-ingress-controller-https
+  namespace: kube-system
+  labels:
+    k8s-app: traefik-ingress-controller-https
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: traefik-ingress-controller-https
+  template:
+    metadata:
+      labels:
+        k8s-app: traefik-ingress-controller-https
+    spec:
+      serviceAccount: traefik
+      terminationGracePeriodSeconds: 15
+      hostNetwork: true
+      nodeSelector:
+        kubernetes.io/hostname: lb.internal.local
+      volumes:
+      - name: traefik-cache
+        hostPath:
+          path: /tmp/traefik
+      - name: traefik-config
+        configMap:
+          name: traefik-https-cfg
+      containers:
+      - image: traefik
+        name: traefik-ingress-controller
+        resources:
+          limits:
+            cpu: 1500m
+            memory: 30Mi
+          requests:
+            cpu: 100m
+            memory: 20Mi
+        ports:
+        - name: http
+          containerPort: 80
+          hostPort: 80
+        - name: https
+          containerPort: 443
+          hostPort: 443
+        - name: admin
+          containerPort: 8888
+        volumeMounts:
+        - mountPath: /etc/traefik
+          name: traefik-cache
+        - mountPath: /config-files
+          name: traefik-config
+        args:
+        - --web
+        - --web.address=:8888
+        - --kubernetes
+        - --logLevel=INFO
+        - --configFile=/config-files/traefik.toml
+        </pre>
+        <p>
+            Posted January 2nd, 2018
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

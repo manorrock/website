@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JaCoCo code coverage</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>JaCoCo code coverage</h1>
+        <p>
+            Code coverage can be a useful tool but how can you set it up to not
+            be too much of a burden on your developers? Simple, follow the recipe
+            below and let your CI do the heavy lifting!
+        </p>
+        <p>
+            Add the Jacoco plugin to your pluginManagement section.
+        </p>
+        <pre>
+
+  &lt;pluginManagement>
+    &lt;plugins>
+      &lt;plugin>
+        &lt;groupId>org.jacoco&lt;/groupId>
+        &lt;artifactId>jacoco-maven-plugin&lt;/artifactId>
+        &lt;version>0.8.1&lt;/version>
+      &lt;/plugin>
+    &lt;/plugins>
+  &lt;/pluginManagement>
+        </pre>
+        <p>
+            Create a coverage profile and add it to your top level POM
+        </p>
+        <pre>
+
+  &lt;profiles>
+    &lt;profile>
+      &lt;id>coverage&lt;/id>
+      &lt;build>
+        &lt;plugins>
+          &lt;plugin>
+            &lt;groupId>org.jacoco&lt;/groupId>
+            &lt;artifactId>jacoco-maven-plugin&lt;/artifactId>
+            &lt;inherited>true&lt;/inherited>
+            &lt;executions>
+              &lt;execution>
+                &lt;id>default-prepare-agent&lt;/id>
+                &lt;goals>
+                  &lt;goal>prepare-agent&lt;/goal>
+                &lt;/goals>
+              &lt;/execution>
+              &lt;execution>
+                &lt;id>default-report&lt;/id>
+                &lt;phase>prepare-package&lt;/phase>
+                &lt;goals>
+                  &lt;goal>report&lt;/goal>
+                &lt;/goals>
+              &lt;/execution>
+            &lt;/executions>
+          &lt;/plugin>
+        &lt;/plugins>
+      &lt;/build>
+      &lt;modules>
+        &lt;module>coverage&lt;/module>
+      &lt;/modules>
+    &lt;/profile>
+  &lt;/profiles>
+        </pre>
+        <p>
+            Create the coverage module with the coverage aggregate report and add
+            the other modules as dependencies
+        </p>
+        <pre>
+
+  &lt;build>
+    &lt;plugins>
+      &lt;plugin>
+        &lt;groupId>org.jacoco&lt;/groupId>
+        &lt;artifactId>jacoco-maven-plugin&lt;/artifactId>
+        &lt;executions>
+          &lt;execution>
+            &lt;id>default-report-aggegrate&lt;/id>
+            &lt;phase>prepare-package&lt;/phase>
+            &lt;goals>
+              &lt;goal>report-aggregate&lt;/goal>
+            &lt;/goals>
+          &lt;/execution>
+        &lt;/executions>
+      &lt;/plugin>
+    &lt;/plugins>
+  &lt;/build>            
+        </pre>
+        <p>
+            Execute your Maven build with <code>-P coverage</code> and you can find the 
+            aggregate coverage report in the coverage module.
+        </p>
+        <p>
+            Posted April 19th, 2018
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

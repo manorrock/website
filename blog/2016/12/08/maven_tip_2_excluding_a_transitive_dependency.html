@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Maven Tip #2 - Exclude a transitive dependency</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Maven Tip #2 - Exclude a transitive dependency</h1>
+        <p>
+            Sometimes when you are using Maven one of your dependencies might
+            be pulling in a dependency of its own that you do not want to use.
+        </p>
+        <pre>
+
+    &lt;dependency>
+        &lt;groupId>mycompany&lt;/groupId>
+        &lt;artifactId>myproduct&lt;/artifactId>
+        &lt;version>1.0&lt;/version>
+        &lt;scope>compile&lt;/scope>
+        &lt;exclusions>
+            &lt;exclusion>
+               &lt;groupId>mycompany&lt;/groupId>
+                &lt;artifactId>mylibrary&lt;/artifactId>
+            &lt;/exclusion>
+        &lt;/exclusions> 
+    &lt;/dependency>
+        </pre>
+        <p>
+            And voila you have excluded the dependency.
+        </p>
+        <p>
+            Posted December 8, 2016
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

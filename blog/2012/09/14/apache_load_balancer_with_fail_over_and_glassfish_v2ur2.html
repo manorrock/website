@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Apache load balancer with fail-over and Glassfish v2ur2+</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Apache load balancer with fail-over and Glassfish v2ur2+</h1>
+        <h2>Introduction</h2>
+        <p>
+            In general when people think about running a load balancer in front
+            of a Java based application server it usually is Tomcat. This 
+            article describes how you can use Glassfish instead. It will also
+            enable you to have automatic fail-over.
+        </p>
+        <h2>Requirements</h2>
+        <ul>
+            <li>Apache 2.2.x</li>
+            <li>mod_proxy</li>
+            <li>mod_rewrite</li>
+            <li>Glassfish 2 ur2 +</li>
+        </ul>
+        <h2>Setup</h2>
+        <p>
+            Add the following to make Apache load balance to your Glassfish 
+            cluster:
+        </p>
+        <pre>
+
+    RewriteEngine On
+    ProxyRequests Off
+
+    &lt;Proxy *>
+        Order deny,allow
+        Allow from all
+    &lt;/Proxy>
+
+    &lt;Location /balancer-manager>
+        SetHandler balancer-manager
+    &lt;/Location>
+
+    &lt;Proxy balancer://mycluster>
+       BalancerMember http://10.1.1.2:38080 route=w1
+       BalancerMember http://10.1.1.3:38080 route=w2
+       BalancerMember http://10.1.1.4:38080 route=w3
+    &lt;/Proxy>
+
+    &lt;Location /clusterjsp>
+        Order allow,deny
+        Allow from all
+    &lt;/Location>
+        
+    ProxyPass /clusterjsp balancer://mycluster/clusterjsp lbmethod=byrequests
+        </pre>
+        <p>
+            And for Glassfish you need to set up a cluster. See the cluster 
+            article for more information on how to setup a cluster. Once you 
+            have done that please return to this article for the remaining 
+            steps.
+        </p>
+        <p>
+            You now have both Apache and the cluster configured so it is time 
+            to check if the load-balancer is online. 
+        </p>
+        <p>
+            Browse to http://localhost/balancer-manager (where localhost is 
+            your Apache server) and verify if the load-balancer sees the 3 
+            workers and if the routes are set. Now the last remaining step is 
+            to deploy a clusterable application.
+        </p>
+        <p>
+            The Glassfish distribution contains an example application that you
+            can deploy on a cluster. See 
+            $GLASSFISH_ROOT/samples/quickstart/clusterjsp.
+        </p>
+        <p>
+            Go to the administration console of the administration server and 
+            select your cluster. Click on the Applications tab and click on 
+            Deploy, select the clusterjsp.ear file that you found in the 
+            Glassfish samples and make sure Availability is checked (this is 
+            for the fail-over). Then click OK. Then browse to 
+            http://localhost/clusterjsp and see your work in action!
+        </p>
+        <p>
+            You now are using Apache load-balancing, mod_proxy with a Glassfish
+            cluster together.
+        </p>
+        <p>
+            (Glassfish 2+)
+        </p>
+        <p>
+            Posted September 14, 2012
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>

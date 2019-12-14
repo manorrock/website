@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JSF Tip #22 - The JSF PartialStateHolder API</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link  href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>JSF Tip #22 - The JSF PartialStateHolder API</h1>
+        <p>
+            The definition of a PartialStateHolder according to the 
+            PartialStateHolder interface:
+        </p>
+        <pre>
+
+  void clearInitialState() 
+  boolean initialStateMarked() 
+  void markInitialState()
+        </pre>
+        <p>
+            Note that the methods above do not mention that a 
+            PartialStateHolder extends from StateHolder. Be aware that if you 
+            want to implement partial state saving you will also need to 
+            implement the methods of the StateHolder interface. Having that 
+            said, what are the 3 methods used for?
+        </p>
+        <h2>The clearInitialState method</h2>
+        <p>
+            The clearInitialState method can be used to tell the JSF runtime 
+            that you are no longer interested in partial state saving and that
+            you want full state saving.
+        </p>
+        <h2>The initialStateMarked method</h2>
+        <p>
+            The initialStateMarked method can be used to determine if the 
+            PartialStateHolder has its initial state marked.
+        </p>
+        <h2>The markInitialState method</h2>
+        <p>
+            The markInitialState method will be called by the JSF runtime after
+            creating components and adding them to the component tree. Once
+            this method is called the component will track changes since the
+            initial state.
+        </p>
+        <p>
+            OK that is all interesting but how does that work for real? Well 
+            imagine the following:
+        </p>
+        <h2>Component construction during Render Response</h2>
+        <ol>
+            <li>Create the component</li>
+            <li>Add the component to the component tree</li>
+            <li>Call markInitialState on the component</li>
+        </ol>
+        <h2>Component construction during Restore View</h2>
+        <ol>
+            <li>Create the component</li>
+            <li>Restore the component state from partial state</li>
+        </ol>
+        <p>
+            Posted October 18, 2012
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+</body>
+</html>
