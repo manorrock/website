@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Install Metrics Server on a Kubernetes ARM cluster</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Install Metrics Server on a Kubernetes ARM cluster</h1>
+        <p>
+            Clone the Git repository at https://github.com/kubernetes-sigs/metrics-server.git
+        </p>
+        <p>
+            In the <code>deploy/1.8+/metrics-server-deployment.yaml</code> file replace:
+        </p>
+        <pre>
+
+    image: k8s.gcr.io/metrics-server-amd64:v0.3.6            
+        </pre>
+        <p>
+            with:
+        </p>
+        <pre>
+
+    image: k8s.gcr.io/metrics-server-arm:v0.3.6            
+        </pre>
+        <p>
+            <i>
+            Note the version might been newer for the amd64 line, if that is the
+            case adjust the second line to match that version.
+            </i>
+        </p>
+        <p>
+            And the issue the following command line to install the metrics server:
+        </p>
+        <pre>
+            
+    kubectl create -f deploy/1.8+/
+        </pre>
+        <p>
+            And voila you now have a metric server running on your Kubernetes ARM cluster.
+        </p>
+        <p>
+            Posted December 18th, 2019
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
