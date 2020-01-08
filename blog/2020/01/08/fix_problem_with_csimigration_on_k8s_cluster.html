@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Fix problem with CSIMigration on Kubernetes cluster</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Fix problem with CSIMigration on Kubernetes cluster</h1>
+        <p>
+            If you are running a Kubernetes cluster with nodes with different 
+            versions you might notice that your newer nodes are not coming up 
+            because of a CSIMigration issue.
+        </p>
+        <p>
+            Open up the config.yaml for the kubelet (e.g. /var/lib/kubelet/config.yaml)
+            and add the following to the end.
+        </p>
+        <pre>
+
+featureGates:
+  CSIMigration: false
+        </pre>
+        <p>
+            Restart the node (or just the kubelet) and voila your node now is 
+            working properly!
+        </p>
+        <p>
+            Posted January 8th, 2020
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
