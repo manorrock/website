@@ -48,11 +48,12 @@
   curl -sSL https://get.docker.com | sh
         </pre>
         <p>
-            Make sure your user can use Docker.
+            Make sure your user can use Docker. Note replace &lt;user-id&gt;
+            with your own user id.
         </p>
         <pre>
 
-  sudo usermod -aG docker pi
+  sudo usermod -aG docker &lt;user-id&gt;
         </pre>
         <p>
             Reboot (just for good measure).
