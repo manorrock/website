@@ -82,12 +82,11 @@
         </p>
         <pre>
 
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl            
+apt-get update && sudo apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
         </pre>
         <p>
             Then in a separate terminal log into the <b>Kubernetes master</b> and become root using:
@@ -115,7 +114,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
         </p>
         <pre>
 
-  kubeadm join —-token &lt;token&gt; &lt;master_ip:6443&gt; --discovery-token-unsafe-skip-ca-verification
+  kubeadm join --token &lt;token&gt; &lt;master_ip:6443&gt; --discovery-token-unsafe-skip-ca-verification
         </pre>
         <p>
             Replace <code>token</code> with the value of the output of the kubeadm command
