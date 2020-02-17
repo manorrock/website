@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Running a JSP as an Azure Function</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Running a JSP as an Azure Function</h1>
+        <p>
+            In our previous blog entry we demonstrated you can run a Servlet as
+            an Azure function. Can we do the same with a JSP? The answer to that
+            question is YES. It is a little bit more involving as Azure Functions
+            by default uses just the JRE and for JSPs you need the JDK.
+        </p>
+        <p>
+            Below is the quick recipe to get this to work!
+        </p>
+        <p>
+            The code below is the 'Hello World' JSP
+        </p>
+        <pre>
+
+<%@page contentType="text/html" pageEncoding="UTF-8" session="false"%>
+&lt;html>
+    &lt;head>&lt;/head>
+    &lt;body>
+        &lt;h1>Hello World&lt;/h1>
+        And today's date is &lt;%= new java.util.Date() %>
+    &lt;/body>
+&lt;/html>
+        </pre>
+        <p>The code below is the Azure Function dispatching to the 'Hello World' JSP</p>
+        <pre>
+            
+public class HelloWorldFunction {
+
+    @FunctionName("/helloworld")
+    public HttpResponseMessage run(
+            @HttpTrigger(
+                    name = "request",
+                    methods = {HttpMethod.GET},
+                    authLevel = AuthorizationLevel.FUNCTION
+            ) HttpRequestMessage&lt;Optional&lt;String>> request,
+            final ExecutionContext context) {
+
+        NanoRequest nanoRequest = new NanoRequestBuilder()
+                .method("GET")
+                .servletPath("/helloworld.jsp")
+                .build();
+
+        ByteArrayOutputStream nanoOutputStream = new ByteArrayOutputStream();
+        NanoResponse nanoResponse = new NanoResponseBuilder()
+                .outputStream(nanoOutputStream)
+                .build();
+
+        String body = null;
+
+        File[] libFiles = new File("lib").listFiles();
+        StringBuilder classpath = new StringBuilder();
+        if (libFiles != null) {
+            for (int i = 0; i < libFiles.length; i++) {
+                classpath.append(libFiles[i].getAbsolutePath());
+                if (i + 1 != libFiles.length) {
+                    classpath.append(File.pathSeparatorChar);
+                }
+            }
+        }
+        try {
+            NanoPiranha piranha = new NanoPiranhaBuilder()
+                    .directoryResource("webapp")
+                    .servlet("JSP Servlet", new JspServlet())
+                    .servletInitParam("JSP Servlet", "classpath", classpath.toString())
+                    .servletInitParam("JSP Servlet", "compilerSourceVM", "1.8")
+                    .servletInitParam("JSP Servlet", "compilerTargetVM", "1.8")
+                    .servletInitParam("JSP Servlet", "fork", "false")
+                    .build();
+            piranha.service(nanoRequest, nanoResponse);
+        } catch (IOException | ServletException e) {
+            body = e.getMessage();
+        }
+
+        if (body == null) {
+            body = nanoOutputStream.toString();
+        }
+
+        return request.createResponseBuilder(HttpStatus.OK).
+                header("Content-Type", "text/html").
+                body(body).
+                build();
+    }
+}
+        </pre>
+        <p>
+            Then deploy the Azure function.
+        </p>
+        <p>
+            If you try it out now it will tell you it needs a JDK instead of the JRE.
+        </p>
+        <p>
+            So we will need to upload a JDK we can use.
+        </p>
+        <p>
+            To do so you will use
+            <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings#kudu">Kudu</a>
+            to upload the zip file containing a Windows 64-bit version of the JDK.
+        </p>
+        <p>
+            Then you will also need to create 2 AppSettings like the ones below:
+        </p>
+        <table border='1'>
+            <tr>
+                <td>languageWorkers:java:defaultExecutablePath</td>
+                <td>D:\Home\jdk8u242-b08\bin\java</td>
+            </tr>         
+            <tr>
+                <td>WEBSITE_USE_PLACEHOLDER</td>
+                <td>0</td>
+            </tr>         
+        </table>
+        <p>
+            Make sure the path above corresponds to the location of the java.exe
+            of the JDK you previously uploaded.
+        </p>
+        <p>
+            See <a href="https://github.com/Azure/azure-functions-java-worker/wiki/Customize-JRE-used-by-Azure-Functions">Customize JRE used by Azure Functions</a>
+            for more information.
+        </p>
+        <p>
+            This is all made possible by the <a href="https://piranha.cloud/nano">Piranha Nano</a> runtime, which is part
+            of the <a href="https://piranha.cloud/">Piranha Cloud</a> project that delivers you with a highly
+            composable cloud runtime.
+        </p>
+        <p>
+            A zip file that contains everything you need is available <a href="function-jsp.zip">here</a>
+        </p>
+        <p>
+            Posted February 17th, 2020
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
