@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Running a Web Application as an Azure Function</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Running a Web Application as an Azure Function</h1>
+        <p>
+            In our previous blog entry we demonstrated you can run a JSP as
+            an Azure function. Can we go even further and run a Web Application
+            as an Azure Function? Yes, we can!
+        </p>
+        <p>
+            Below is the quick recipe to get this to work!
+        </p>
+        <p>
+            The code below is the 'Hello World' Servlet
+        </p>
+        <pre>
+
+public class HelloWorldServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        PrintWriter writer = response.getWriter();
+        writer.println("Hello World");
+        writer.flush();
+    }
+}
+        </pre>
+        <p>The code below is the Azure Function dispatching to the Web Application</p>
+        <pre>
+            
+public class WebappFunction {
+
+    /**
+     * Stores the single instance of Piranha Embedded.
+     */
+    private static EmbeddedPiranha EMBEDDED_PIRANHA;
+
+    /**
+     * Run the function.
+     *
+     * @param request the request.
+     * @param path the path.
+     * @param context the execution context.
+     * @return the response.
+     */
+    @FunctionName("webapp")
+    public HttpResponseMessage run(
+            @HttpTrigger(
+                    name = "request",
+                    methods = {HttpMethod.GET, HttpMethod.POST},
+                    route = "{path}",
+                    authLevel = AuthorizationLevel.ANONYMOUS
+            ) HttpRequestMessage&lt;Optional&lt;String>> request,
+            @BindingName("path") String path,
+            final ExecutionContext context) {
+
+        /**
+         * Build the Embedded request.
+         */
+        EmbeddedRequest embeddedRequest = new EmbeddedRequestBuilder()
+                .method(request.getHttpMethod().name())
+                .servletPath(path.equals("") ? "" : "/" + path)
+                .build();
+
+        /**
+         * Build the Embedded response.
+         */
+        EmbeddedResponse embeddedResponse = new EmbeddedResponseBuilder()
+                .build();
+
+        /**
+         * Build up the Piranha Embedded runtime and dispatch the request and
+         * response to it and then capture the response.
+         */
+        String body = null;
+
+        try {
+            if (EMBEDDED_PIRANHA == null) {
+                EMBEDDED_PIRANHA = new EmbeddedPiranha();
+                WebApplication webApplication = EMBEDDED_PIRANHA.getWebApplication();
+                webApplication.setClassLoader(
+                    new DefaultWebApplicationClassLoader(new File("webapp")));
+                webApplication.addResource(new DefaultDirectoryResource("webapp"));
+                webApplication.addInitializer(WebXmlInitializer.class.getName());
+                webApplication.addServlet("DefaultServlet", DefaultServlet.class.getName());
+                webApplication.addServletMapping("DefaultServlet", "/*");
+                webApplication.initialize();
+                webApplication.start();
+            }
+            EMBEDDED_PIRANHA.service(embeddedRequest, embeddedResponse);
+        } catch (IOException | ServletException e) {
+            body = e.getMessage();
+        }
+
+        if (body == null) {
+            body = embeddedResponse.getResponseAsString();
+        }
+
+        /**
+         * Return the function response.
+         */
+        return request.createResponseBuilder(HttpStatus.OK).
+                header("Content-Type", "text/html").
+                body(body).
+                build();
+    }
+}
+        </pre>
+        <p>
+            As you can see this was all very easy to accomplish thanks to
+            Piranha Embedded. Go over to the <a href="https://piranha.cloud">
+                Piranha Cloud</a> project to see more. If there is interest in
+            a proper extension please file an issue at their project.
+        </p>
+        <p>
+            A zip file that contains everything you need is available <a href="function-webapp.zip">here</a>
+        </p>
+        <p>
+            Posted February 16th, 2020
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
