@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Migrating your Teralith</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Migrating your Teralith</h1>
+        <p>
+            If you are reading this you are curious about migrating your 
+            applications to a more modern stack. Or you are just curious to find
+            out what a Teralith is.
+        </p>
+        <p>
+            Well I am not going to make you wait long!
+        </p>
+        <h2>My definition of a Teralith</h2>
+        <blockquote>
+            <i>a Teralith is the organization you work for, with all
+            of its employees, all of its business processes, <br/> every 
+            relationship it has with vendors, the pool of hardware it maintains
+            in order to function, <br/> every piece of software it uses, every
+            single customers it sells to, and whatever else makes it tick</i>
+        </blockquote>
+        <p>
+            What on earth does this have to do with migration my applications?
+        </p>
+        <p>
+            Well as you might have noticed every single part of your organization
+            does not stand alone. Any choice made in any part has repercussions
+            for another part of your organization. As such a migration of your
+            software stack should not be undertaken without regard for that
+            reality.
+        </p>
+        <p>
+            To illustrate a bit further, lets ask some questions
+        </p>
+        <dl>
+            <dt><i>Question: How many people are going to be using this application?</i></dt>
+            <dd>
+                <br/>Answer: We don't exactly know<br/><br/>
+            </dd>
+            <dt><i>Question: Is this application going to store data?</i></dt>
+            <dd>
+                <br/>Answer: Yes<br/><br/>
+            </dd>
+            <dt><i>Question: Where is this data going to be stored?</i></dt>
+            <dd>
+                <br/>Answer: We hope on the cloud<br/><br/>
+            </dd>
+            <dt><i>Question: Who is responsible for the data?</i></dt>
+            <dd>
+                <br/>Answer: We haven't determined that yet<br/><br/>
+            </dd>
+            <dt><i>Question: What is the classification of the data?</i></dt>
+            <dd>
+                <br/>Answer: Not sure<br/><br/>
+            </dd>
+            <dt><i>Question: How often is this application going to be used?</i></dt>
+            <dd>
+                <br/>Answer: At least once a day<br/><br/>
+            </dd>
+            <dt><i>Question: Is the application mission critical</i></dt>
+            <dd>
+                <br/>Answer: We can deal with it if it is not up for a day or so<br/><br/>
+            </dd>
+            <dt><i>Question: How much bandwidth does the application need?</i></dt>
+            <dd>
+                <br/>Answer: It should not need much<br/><br/>
+            </dd>
+            <dt><i>Question: Where in the world will it be used?</i></dt>
+            <dd>
+                <br/>Answer: First in North America and then in the rest of the world<br/><br/>
+            </dd>
+        </dl>
+        <p>
+            As you might have noticed these questions deal with everything around
+            the application. And that is where the real problem of your migration
+            lies. Popular articles will tell you that a monolith is bad and 
+            micro services are going to save you. The truth is that any project
+            can fail for a variety of reasons. Most often those reasons have
+            nothing to do with the Monolith, but instead it has everything to do
+            with your Teralith!
+        </p>
+        <p>
+            Now I am not advocating that micro services are bad, nor am I
+            advocating that monoliths are bad. What I am saying is that I would
+            urge you to take a step back and look at your Teralith. Seek to
+            understand the desire to migrate. Is it for the right reasons? Will it
+            help the bottom line of your Teralith, or will it instead become a
+            burden.
+        </p>
+        <p>
+            Now I hope I have given you something to think about. So the next time
+            someone tells you need to migrate your application(s) you can ask them
+            some questions.
+        </p>
+        <p>
+            Long life to your Teralith!
+        </p>
+        <p>
+            PS. just to throw people off the pronunciation is "terra-lit".
+        </p>
+        <p>
+            Posted April 2nd, 2020
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
