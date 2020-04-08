@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Installing a Kubernetes cluster on macOS using k3d</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../blog.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Installing a Kubernetes cluster on macOS using k3d</h1>
+        <p>
+            Running k3d on macOS is very simple. Below is a quick and diryt 
+            recipe.
+        </p>
+        <p>
+            Prerequisites
+        </p>
+        <ul>
+            <li>Docker Desktop</li>
+        </ul>
+        <p>
+            Use Homebrew to install k3d
+        </p>
+        <pre>
+
+    brew install k3d
+        </pre>
+        <p>
+            Create your Kubernetes cluster
+        </p>
+        <pre>
+
+    k3d create
+        </pre>
+        <p>
+            Get the KUBECONFIG file and export it to your environment
+        </p>
+        <pre>
+
+    export KUBECONFIG="$(k3d get-kubeconfig --name='k3s-default')"
+        </pre>
+        <p>
+            Verify your cluster is running
+        </p>
+        <pre>
+
+    kubectl get pods --all-namespaces
+        </pre>
+        <p>
+            And voila that is it!
+        </p>
+        <p>
+            Posted April 8th, 2020
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
