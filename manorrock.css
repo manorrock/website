@@ -8,13 +8,17 @@ body {
 }
 
 h1 {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
     color: #0000dd;
     font-size: xx-large;
+    width: 100%;
 }
 
 h2 {
     color: #0000cc;
     font-size: x-large;
+    font-variant: small-caps;
 }
 
 h3 {
