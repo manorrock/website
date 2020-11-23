@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Use Piranha Nano as a light-weight Servlet runner</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Use Piranha Nano as a light-weight Servlet runner</h1>
+        <p>
+            Running a Servlet using Piranha is very easy and fun! For this blog
+            entry we will show you how you can use Piranha Nano, couple with the
+            DefaultHttpServer to run a HelloWorldServlet.
+        </p>
+        <ul>
+            <li>Write HelloWorldServlet</li>
+            <li>Create HttpServerProcessor</li>
+            <li>Create Appplication</li>
+            <li>Build JLink image</li>
+            <li>Create Docker image</li>
+        </ul>
+        <h2>Write HelloWorldServlet</h2>
+        <p>
+            The code for the HelloWorldServlet will be similar to the snippet
+            below.
+        </p>
+        <pre>
+
+public class HelloWorldServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, 
+            HttpServletResponse response) throws IOException, ServletException {
+        PrintWriter writer = response.getWriter();
+        writer.println("Hello World");
+    }
+}
+        </pre>
+            
+        <h2>Create HttpServerProcessor</h2>
+        <p>
+            The code for the HttpServerProcessor will be similar to the snippet
+            below.
+        </p>
+        <pre>
+
+public class HelloWorldProcessor implements HttpServerProcessor {
+
+    private final NanoPiranha piranha;
+
+    public HelloWorldProcessor(NanoPiranha piranha) {
+        this.piranha = piranha;
+    }
+
+    @Override
+    public boolean process(HttpServerRequest request, HttpServerResponse response) {
+        try {
+            HttpWebApplicationRequest servletRequest = new HttpWebApplicationRequest(request);
+            HttpWebApplicationResponse servletResponse = new HttpWebApplicationResponse(response);
+            piranha.service(servletRequest, servletResponse);
+            servletResponse.flush();
+        } catch (IOException | ServletException e) {
+            e.printStackTrace(System.err);
+        }
+        return false;
+    }
+}
+            
+        </pre>
+        <h2>Create Application</h2>
+        <p>
+            The code for the Application class will be similar to the snippet
+            below.
+        </p>
+        <pre>
+
+public class HelloWorldApplication {
+
+    public void run() {
+        NanoPiranha piranha = new NanoPiranhaBuilder()
+                .servlet("HelloWorld", new HelloWorldServlet())
+                .build();
+        DefaultHttpServer server = new DefaultHttpServer(8080, 
+                new HelloWorldProcessor(piranha), false);
+        server.start();
+    }
+
+    public static void main(String[] arguments) throws Exception {
+        HelloWorldApplication application = new HelloWorldApplication();
+        application.run();
+    }
+}
+            
+        </pre>
+        <p>
+            Note you can swap out DefaultHttpServer with Grizzly, JDK HTTP
+            server, Undertow or Netty. All it takes is using the appropriate
+            module and adjusting the class name.
+        </p>
+        <h2>Build JLink image</h2>
+        <p>
+            The project zip is also setup to build the JLink native image, see
+            the jlink/pom.xml file. If you want to build the project download
+            the <a href="helloworld.zip">zip</a> file and execute the command
+            line below.
+        </p>
+        <pre>
+            
+mvn clean verify
+        </pre>
+        <p>
+            And voila the <code>jlink/target/jlink</code> directory will contain
+            the JLink native image. You now have a quick recipe to write Servlets
+            using Piranha Nano.
+        </p>
+        <p>
+            Enjoy!
+        </p>
+        <p>
+            Posted November 23rd, 2020
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
