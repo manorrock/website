@@ -34,18 +34,21 @@
             entry we will show you how you can use Piranha Nano, couple with the
             DefaultHttpServer to run a HelloWorldServlet.
         </p>
-        <ul>
+        <p>
+            Follow steps mentioned below.
+        </p>
+        <ol>
             <li>Write HelloWorldServlet</li>
             <li>Create HttpServerProcessor</li>
             <li>Create Appplication</li>
             <li>Build JLink image</li>
-        </ul>
+        </ol>
         <h2>Write HelloWorldServlet</h2>
         <p>
             The code for the HelloWorldServlet will be similar to the snippet
             below.
         </p>
-        <pre>
+        <!--pre>
 
 public class HelloWorldServlet extends HttpServlet {
 
@@ -56,6 +59,18 @@ public class HelloWorldServlet extends HttpServlet {
         writer.println("Hello World");
     }
 }
+        </pre-->
+        <pre style='color:#000000;background:#ffffff;'>
+
+<span style='color:#7f0055; font-weight:bold; '>public</span> <span style='color:#7f0055; font-weight:bold; '>class</span> HelloWorldServlet <span style='color:#7f0055; font-weight:bold; '>extends</span> HttpServlet {
+
+    <span style='color:#7f9fbf; font-weight:bold; '>@Override</span>
+    <span style='color:#7f0055; font-weight:bold; '>protected</span> <span style='color:#7f0055; font-weight:bold; '>void</span> doGet(HttpServletRequest request, 
+            HttpServletResponse response) <span style='color:#7f0055; font-weight:bold; '>throws</span> <span style='color:#7f0055; font-weight:bold; '>IOException</span>, ServletException {
+        <span style='color:#7f0055; font-weight:bold; '>PrintWriter</span> writer = response.getWriter();
+        writer.println(<span style='color:#2a00ff; '>"Hello World"</span>);
+    }
+}
         </pre>
             
         <h2>Create HttpServerProcessor</h2>
@@ -63,7 +78,7 @@ public class HelloWorldServlet extends HttpServlet {
             The code for the HttpServerProcessor will be similar to the snippet
             below.
         </p>
-        <pre>
+        <!--pre>
 
 public class HelloWorldProcessor implements HttpServerProcessor {
 
@@ -87,13 +102,38 @@ public class HelloWorldProcessor implements HttpServerProcessor {
     }
 }
             
+        </pre-->
+        <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>
+
+public</span> <span style='color:#800000; font-weight:bold; '>class</span> HelloWorldProcessor <span style='color:#800000; font-weight:bold; '>implements</span> HttpServerProcessor <span style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>private</span> <span style='color:#800000; font-weight:bold; '>final</span> NanoPiranha piranha<span style='color:#800080; '>;</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> HelloWorldProcessor<span style='color:#808030; '>(</span>NanoPiranha piranha<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>piranha <span style='color:#808030; '>=</span> piranha<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#7f9fbf; font-weight:bold; '>@Override</span>
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>boolean</span> process<span style='color:#808030; '>(</span>HttpServerRequest request<span style='color:#808030; '>,</span> HttpServerResponse response<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        <span style='color:#800000; font-weight:bold; '>try</span> <span style='color:#800080; '>{</span>
+            HttpWebApplicationRequest servletRequest <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> HttpWebApplicationRequest<span style='color:#808030; '>(</span>request<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            HttpWebApplicationResponse servletResponse <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> HttpWebApplicationResponse<span style='color:#808030; '>(</span>response<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            piranha<span style='color:#808030; '>.</span>service<span style='color:#808030; '>(</span>servletRequest<span style='color:#808030; '>,</span> servletResponse<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+            servletResponse<span style='color:#808030; '>.</span>flush<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>catch</span> <span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>IOException</span> <span style='color:#808030; '>|</span> ServletException e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+            e<span style='color:#808030; '>.</span>printStackTrace<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>err<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+        <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>false</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+
         </pre>
         <h2>Create Application</h2>
         <p>
             The code for the Application class will be similar to the snippet
             below.
         </p>
-        <pre>
+        <!--pre>
 
 public class HelloWorldApplication {
 
@@ -112,6 +152,26 @@ public class HelloWorldApplication {
     }
 }
             
+        </pre-->
+        <pre style='color:#000000;background:#ffffff;'>
+
+<span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>class</span> HelloWorldApplication <span style='color:#800080; '>{</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#bb7977; '>void</span> run<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+        NanoPiranha piranha <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> NanoPiranhaBuilder<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span>
+                <span style='color:#808030; '>.</span>servlet<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"HelloWorld"</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>new</span> HelloWorldServlet<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+                <span style='color:#808030; '>.</span>build<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        DefaultHttpServer server <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> DefaultHttpServer<span style='color:#808030; '>(</span><span style='color:#008c00; '>8080</span><span style='color:#808030; '>,</span> 
+                <span style='color:#800000; font-weight:bold; '>new</span> HelloWorldProcessor<span style='color:#808030; '>(</span>piranha<span style='color:#808030; '>)</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>false</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        server<span style='color:#808030; '>.</span>start<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+
+    <span style='color:#800000; font-weight:bold; '>public</span> <span style='color:#800000; font-weight:bold; '>static</span> <span style='color:#bb7977; '>void</span> main<span style='color:#808030; '>(</span><span style='color:#bb7977; font-weight:bold; '>String</span><span style='color:#808030; '>[</span><span style='color:#808030; '>]</span> arguments<span style='color:#808030; '>)</span> <span style='color:#800000; font-weight:bold; '>throws</span> <span style='color:#bb7977; font-weight:bold; '>Exception</span> <span style='color:#800080; '>{</span>
+        HelloWorldApplication application <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> HelloWorldApplication<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+        application<span style='color:#808030; '>.</span>run<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+     
         </pre>
         <p>
             Note you can swap out DefaultHttpServer with Grizzly, JDK HTTP
