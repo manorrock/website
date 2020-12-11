@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Running Piranha Nano on Azure Function using Custom Handlers</title>
+        <title>Running Piranha Nano on Azure Functions using Custom Handlers</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
@@ -28,7 +28,8 @@
         </script>
     </head>
     <body>
-        <h1>Running Piranha Nano on Azure Function using Custom Handlers</h1>
+        <h1>Running Piranha Nano on Azure Functions</h1>
+        <h2>Using Custom Handlers</h2>
         <p>
             How much effort does it take to run a Piranha Nano application
             as an Azure Function using a Custom Handler?
@@ -90,14 +91,14 @@ az functionapp create \
   --functions-version 3
 
         </pre>
-        <b>Install the Piranha CLI</b>
+        <h2>Install the Piranha CLI</h2>
         <p>
             This example uses the Piranha CLI so we need to download it and
             install it. Go to https://github.com/piranhacloud/piranha/releases/latest
             and download the zip bundle for your OS. Unzip it in a directory of
             your choice and add the bin directory to your PATH.
         </p>
-        <b>Generate the application</b>
+        <h2>Generate the application</h2>
         <p>
             The Piranha CLI is capable of generating the project skeleton that
             you can use to develop a Piranha Nano application. In an empty 
@@ -108,7 +109,7 @@ az functionapp create \
   pi nano generate
 
         </pre>
-        <b>Build the application</b>
+        <h2>Build the application</h2>
         <p>
             The skeleton that was generate also generated the Dockerfile that
             is used by the Piranha CLI to build the azure.zip file needd for
@@ -120,7 +121,7 @@ az functionapp create \
   pi nano cloud build
 
         </pre>
-        <b>Deploy the application</b>
+        <h2>Deploy the application</h2>
         <p>
             To deploy the application use the command line below. Make sure you
             substitute the &lt;application-name&gt; with the application name
@@ -132,8 +133,12 @@ az functionapp create \
 
         </pre>
         <p>
-            And that is it. As you can see to get up and running with Piranha
-            Nano on Azure Functions is easy and fun!
+            Open your browser to https://&lt;application-name&gt.azurewebsites.net/api/helloworld
+            and you should see 'Hello World'.
+        </p>
+        <p>
+            As you can see to get up and running with Piranha Nano on Azure
+            Functions is easy and fun!
         </p>
         <p>
             Enjoy!
