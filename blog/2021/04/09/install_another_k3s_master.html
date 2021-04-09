@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Install a k3s cluster</title>
+        <title>Install another k3s master</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
@@ -28,8 +28,8 @@
         </script>
     </head>
     <body>
-        <h1>Install a k3s cluster</h1>
-        <h2>On the master</h2>
+        <h1>Install another k3s master</h1>
+        <h2>On the new master</h2>
         <p>
             Become root.
         </p>
@@ -47,7 +47,7 @@ apt-get upgrade -y
 reboot
         </pre>
         <p>
-            Login back into the master and become root.
+            Log back into the new master and become root.
         </p>
         <pre>
 
@@ -61,44 +61,36 @@ sudo su
 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
         </pre>
         <p>
-            Reboot the master.
+            Reboot the new master.
         </p>
         <pre>
 
 reboot
         </pre>
-        <p>
-            Log back into the master and become root.
-        </p>
-        <pre>
-
-sudo su            
-        </pre>
         <h2>
             On the machine you are using to manage the cluster
         </h2>
         <p>
-            Copy the SSH keys into the master (replace MASTER-IP with the IP address
-            of the master).
+            Copy the SSH keys into the node (replace NEW-MASTER-IP with the IP address
+            of the new master).
         </p>
         <pre>
 
-ssh-copy-id pi@MASTER-IP
+ssh-copy-id pi@NEW-MASTER-IP
         </pre>
         <p>
-            Install the k3s server.
+            Join the new master to the k3s cluster as a master (replace NEW-MASTER-IP with the IP address
+            of the node and CURRENT-MASTER-IP with the IP address of a current master).
         </p>
         <pre>
-            
-k3sup install --ip &lt;master-ip> --user pi --k3s-extra-args '--no-deploy traefik'
+
+k3sup join --ip &lt;NEW-MASTER-IPp> --user pi --server-user pi --server-ip &LT;CURRENT-MASTER-IP> --server
         </pre>
         <p>
-            Note the command line above excludes Traefik from the deployment as
-            I deploy it separately. If you do not want to configure Traefik
-            yourself feel free to drop the --k3s-extra-args entirely.
+            And voila you have added another master to your k3s cluster!
         </p>
         <p>
-            Posted February 1st, 2021
+            Posted April 9th, 2021
         </p>
         <p>
             <a href="../../../index.html">Up</a>
