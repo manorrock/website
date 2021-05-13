@@ -132,7 +132,7 @@
                 <a href="predicate.html#object_form_of_a_predicate">
             
                     
-                    Object form of a predicate
+                    Class form of a predicate
             
                 </a>
             
@@ -145,7 +145,7 @@
                 <a href="predicate.html#lambda_expression_form_of_a_predicate">
             
                     
-                    Lambda expression
+                    Lambda expression form of a preoicate
             
                 </a>
             
@@ -166,19 +166,25 @@
             
         </li>
     
+        <li class="chapter " data-level="2.1.4" data-path="predicate.html">
+            
+                <a href="predicate.html#negating_a_predicate">
+            
+                    
+                    Negating a predicate
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
         </li>
     
-
-    
-        
-        <li class="header">Streams</li>
-        
-        
-    
-        <li class="chapter " data-level="3.1" data-path="../streams/stream.md">
+        <li class="chapter " data-level="2.2" data-path="../streams/stream.md">
             
                 <span>
             
@@ -192,7 +198,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1.1" data-path="../streams/stream.md">
+        <li class="chapter " data-level="2.2.1" data-path="../streams/stream.md">
             
                 <span>
             
@@ -205,7 +211,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.2" data-path="../streams/stream.md">
+        <li class="chapter " data-level="2.2.2" data-path="../streams/stream.md">
             
                 <span>
             
@@ -218,7 +224,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.3" data-path="../streams/stream.md">
+        <li class="chapter " data-level="2.2.3" data-path="../streams/stream.md">
             
                 <span>
             
@@ -231,7 +237,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.4" data-path="../streams/stream.md">
+        <li class="chapter " data-level="2.2.4" data-path="../streams/stream.md">
             
                 <span>
             
@@ -244,7 +250,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.5" data-path="../streams/stream.md">
+        <li class="chapter " data-level="2.2.5" data-path="../streams/stream.md">
             
                 <span>
             
@@ -257,7 +263,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.6" data-path="../streams/stream.md">
+        <li class="chapter " data-level="2.2.6" data-path="../streams/stream.md">
             
                 <span>
             
@@ -270,12 +276,7 @@
             
         </li>
     
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2" data-path="../streams/collectors.md">
+        <li class="chapter " data-level="2.2.7" data-path="../streams/collectors.md">
             
                 <span>
             
@@ -288,7 +289,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.3" data-path="../streams/stream-support.md">
+        <li class="chapter " data-level="2.2.8" data-path="../streams/stream-support.md">
             
                 <span>
             
@@ -298,6 +299,11 @@
                 </a>
             
 
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -347,8 +353,8 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="predicate">Predicate</h1>
-<h2 id="object-form-of-a-predicate">Object form of a Predicate</h2>
-<p>A predicate can be written in object form as seen below.</p>
+<h2 id="class-form-of-a-predicate">Class form of a predicate</h2>
+<p>A predicate can be written in class form as seen below.</p>
 <pre><code class="lang-java">  <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EvenPredicate</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">Integer</span>&gt; </span>{
 
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">test</span><span class="hljs-params">(Integer intValue)</span> </span>{
@@ -356,7 +362,7 @@
     }
   }
 </code></pre>
-<p>The example above creates a predicate using the object form and it can be used to test whether an integer is odd or even.</p>
+<p>The example above defines the class <code>EvenPredicate</code> and it can be used to test whether an integer is odd or even.</p>
 <h2 id="lambda-expression-form-of-a-predicate">Lambda expression form of a predicate</h2>
 <p>A predicate can be written in lambda expression form as illustrated below.</p>
 <pre><code class="lang-java">  Predicate&lt;Integer&gt; even = e -&gt; e % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>;
@@ -369,7 +375,12 @@
 </code></pre>
 <p>The example above illustrates how the predicate can be used to test if a given integer is even. If the integer is even it would return <code>true</code>, if the integer is not even it would return <code>false</code>.</p>
 <h2 id="negating-a-predicate">Negating a predicate</h2>
-<p>negate method</p>
+<p>A static method that wraps an existing predicate and negates the boolean result. See for an example below.</p>
+<pre><code class="lang-java">  Predicate&lt;Integer&gt; even = e -&gt; e % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>;
+  Predicate&lt;Integer&gt; notEven = Predicate.not(even);
+  notEven(<span class="hljs-number">1</span>);
+</code></pre>
+<p>The example above illustrates how to negate the <code>even</code> predicate making it the <code>notEven</code> predicate as illustrated.</p>
 <h2 id="testing-equality-using-a-predicate">Testing equality using a predicate</h2>
 <p>isEqual method</p>
 <h2 id="combining-predicates-using-a-logical-and">Combining predicates using a logical AND</h2>
@@ -412,7 +423,7 @@
                 </a>
                 
                 
-                <a href="predicate.html#object_form_of_a_predicate" class="navigation navigation-next " aria-label="Next page: Object form of a predicate">
+                <a href="predicate.html#object_form_of_a_predicate" class="navigation navigation-next " aria-label="Next page: Class form of a predicate">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -423,7 +434,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Predicate","level":"2.1","depth":1,"next":{"title":"Object form of a predicate","level":"2.1.1","depth":2,"anchor":"#object_form_of_a_predicate","path":"functional/predicate.md","ref":"functional/predicate.md#object_form_of_a_predicate","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"functional/predicate.md","mtime":"2021-05-12T23:43:01.151Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-12T23:43:36.819Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Predicate","level":"2.1","depth":1,"next":{"title":"Class form of a predicate","level":"2.1.1","depth":2,"anchor":"#object_form_of_a_predicate","path":"functional/predicate.md","ref":"functional/predicate.md#object_form_of_a_predicate","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"functional/predicate.md","mtime":"2021-05-13T18:22:48.374Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-13T18:23:20.910Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
