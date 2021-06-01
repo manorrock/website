@@ -1,5 +1,5 @@
 var GA_TOKEN;
-[{"token":"G-ZEXD7P3MYQ","base":["https://www.manorrock.com/book/off-you-go-with-java/"]}].forEach(function(T) {
+[{"token":"UA-10893862-1","base":["https://www.manorrock.com/book/off-you-go-with-java/"]}].forEach(function(T) {
 	var L = window.location;
 	var M = true
 		&& (!T.host || T.host.indexOf(L.host) >= 0)
