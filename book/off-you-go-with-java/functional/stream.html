@@ -302,6 +302,19 @@
             
         </li>
     
+        <li class="chapter " data-level="2.2.6" data-path="stream.html">
+            
+                <a href="stream.html#limit-the-number-of-elements">
+            
+                    
+                    Limit the number of elements
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -355,19 +368,19 @@
                                 <h1 id="stream">Stream</h1>
 <h2 id="collecting-results">Collecting results</h2>
 <p>At the end of processing a stream often times you would need to collect the results.</p>
-<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
+<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> };
   Arrays.stream(integers)
     .collect(Collectors.toList());
 </code></pre>
 <p>The example above collects the stream results into a List.</p>
 <h2 id="counting-the-number-of-elements">Counting the number of elements</h2>
 <p>When processing a stream you might want to know how large the stream is. The example below shows you how.</p>
-<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>};
+<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span> };
   System.out.println(Arrays.stream(integers).count());
 </code></pre>
 <h2 id="getting-the-distinct-elements">Getting the distinct elements</h2>
 <p>When processing a stream you might want to only get the elements that are distinct. </p>
-<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">11</span>}
+<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">11</span> };
   Arrays.stream(integers)
     .distinct()
     .forEach(System.out::println);
@@ -380,12 +393,20 @@
 </code></pre>
 <h2 id="filtering-out-elements">Filtering out elements</h2>
 <p>When processing a stream there are times you would want to filter out certain elements that do not meet the right criteria. Here is where a predicate comes in to determine whether or not a given element matches. If it matches it is retained, if it does not it is filtered out. See for an example below.</p>
-<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>};
+<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span> };
   Arrays.stream(integers)
     .filter(e -&gt; e % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)
     .forEach(System.out::println);
 </code></pre>
 <p>The example above filters out all odd integers out of the given stream.</p>
+<h2 id="limit-the-number-of-elements">Limit the number of elements</h2>
+<p>When processing a stream there are times you would want to limit the number of elements to a specific size. See for an example below.</p>
+<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span> };
+  Arrays.stream(integers)
+    .limit(<span class="hljs-number">5</span>)
+    .forEach(System.out::println);
+</code></pre>
+<p>The example above will only print the first 5 elements.</p>
 <h3 id="references">References</h3>
 <ol>
 <li><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/stream/Stream.html" target="_blank">JavaDoc</a></li>
@@ -433,7 +454,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Stream","level":"2.2","depth":1,"next":{"title":"Collecting results","level":"2.2.1","depth":2,"anchor":"#collecting-results","path":"functional/stream.md","ref":"functional/stream.md#collecting-results","articles":[]},"previous":{"title":"Combining predicates using a logical OR","level":"2.1.7","depth":2,"anchor":"#combining-predicates-using-a-logical-or","path":"functional/predicate.md","ref":"functional/predicate.md#combining-predicates-using-a-logical-or","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","hints"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-10893862-1"},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"functional/stream.md","mtime":"2021-06-01T22:38:22.422Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-01T22:39:05.823Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Stream","level":"2.2","depth":1,"next":{"title":"Collecting results","level":"2.2.1","depth":2,"anchor":"#collecting-results","path":"functional/stream.md","ref":"functional/stream.md#collecting-results","articles":[]},"previous":{"title":"Combining predicates using a logical OR","level":"2.1.7","depth":2,"anchor":"#combining-predicates-using-a-logical-or","path":"functional/predicate.md","ref":"functional/predicate.md#combining-predicates-using-a-logical-or","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","hints"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-10893862-1"},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"functional/stream.md","mtime":"2021-06-03T22:32:02.950Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-03T22:32:34.851Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
