@@ -315,6 +315,19 @@
             
         </li>
     
+        <li class="chapter " data-level="2.2.7" data-path="stream.html">
+            
+                <a href="stream.html#skipping-a-number-of-elements">
+            
+                    
+                    Skipping a number of elements
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -407,6 +420,14 @@
     .forEach(System.out::println);
 </code></pre>
 <p>The example above will only print the first 5 elements.</p>
+<h2 id="skipping-a-number-of-elements">Skipping a number of elements</h2>
+<p>When processing a stream there are times you would want to skip a number of elements. See for an example below.</p>
+<pre><code class="lang-java">  <span class="hljs-keyword">int</span>[] integers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span> };
+  Arrays.stream(integers)
+    .skip(<span class="hljs-number">5</span>)
+    .forEach(System.out::println);
+</code></pre>
+<p>The example above will start printing the elements after skipping the first 5 elements.</p>
 <h3 id="references">References</h3>
 <ol>
 <li><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/stream/Stream.html" target="_blank">JavaDoc</a></li>
@@ -454,7 +475,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Stream","level":"2.2","depth":1,"next":{"title":"Collecting results","level":"2.2.1","depth":2,"anchor":"#collecting-results","path":"functional/stream.md","ref":"functional/stream.md#collecting-results","articles":[]},"previous":{"title":"Combining predicates using a logical OR","level":"2.1.7","depth":2,"anchor":"#combining-predicates-using-a-logical-or","path":"functional/predicate.md","ref":"functional/predicate.md#combining-predicates-using-a-logical-or","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","hints"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-10893862-1"},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"functional/stream.md","mtime":"2021-06-03T22:32:02.950Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-03T22:32:34.851Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Stream","level":"2.2","depth":1,"next":{"title":"Collecting results","level":"2.2.1","depth":2,"anchor":"#collecting-results","path":"functional/stream.md","ref":"functional/stream.md#collecting-results","articles":[]},"previous":{"title":"Combining predicates using a logical OR","level":"2.1.7","depth":2,"anchor":"#combining-predicates-using-a-logical-or","path":"functional/predicate.md","ref":"functional/predicate.md#combining-predicates-using-a-logical-or","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","hints"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-10893862-1"},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"functional/stream.md","mtime":"2021-06-04T21:27:37.109Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-04T21:28:21.210Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
