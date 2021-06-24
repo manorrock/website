@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Publish Maven Site to GitHub pages</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Publish Maven Site to GitHub pages</h1>
+        <p>
+            The following is a quick recipe to public a Maven site to GitHub
+            pages
+        </p>
+        <pre>
+
+name: publish
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v1
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven
+      run: mvn -B site
+    - name: Move site to root directory
+      run: mv target/site/* .
+    - name: Checkout gh-pages branch
+      uses: actions/checkout@v1
+      with:
+        ref: 'gh-pages'
+        clean: 'false'
+    - name: Commit to GitHub pages
+      env:
+        PUBLISH_PASSWORD: ${{ secrets.PUBLISH_PASSWORD }}
+        PUBLISH_USERNAME: ${{ secrets.PUBLISH_USERNAME }}
+      run: |
+        git config --global user.email "noreply@noreply.com"
+        git config --global user.name "Automated job"
+        git add .
+        git commit -a -m "Publishing to GitHub pages"
+        git push https://${PUBLISH_USERNAME}:${PUBLISH_PASSWORD}@github.com/user/repository.git
+        </pre>
+        <p>
+            Adjust the user and repository in the git push command. Adjust the
+            email address in the git config command. Add the PUBLISH_USERNAME
+            secret as a secret to your GitHub account. Add the PUBLISH_PASSWORD
+            secret as a secret to your GitHub account.
+        </p>
+        <p>
+            Posted June 24th, 2021
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
