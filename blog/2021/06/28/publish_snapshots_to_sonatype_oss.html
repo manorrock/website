@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Publish SNAPSHOTs to Sonatype OSS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Publish SNAPSHOTs to Sonatype OSS</h1>
+        <p>
+            The following is a quick recipe to publish Maven SNAPSHOTs to the
+            Sonatype OSS maven repository.
+        </p>
+        <pre>
+
+name: nightly
+on:
+  [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v1
+    - name: Set up Java
+      uses: actions/setup-java@v1
+    - name: Build with Maven
+      run: mvn -B -DskipTests=true -f pom.xml clean install
+    - name: Publish SNAPSHOTS to oss.sonatype.org
+      run: mvn --no-transfer-progress -B -DskipTests=true deploy
+      env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        </pre>
+        <p>
+            Add the OSSRH_USERNAME secret as a secret to your GitHub account, 
+            which is your username for the OSS Sonatype repository. Add the
+            OSSRH_TOKEN secret as a secret to your GitHub account, which is your
+            password for the OSS Sonatype repository.
+        </p>
+        <p>
+            Make sure your POM file contains the following snippet:
+        </p>
+        <pre>
+
+    &lt;distributionManagement>      
+        &lt;snapshotRepository>
+            &lt;id>ossrh&lt;/id>
+            &lt;url>https://oss.sonatype.org/content/repositories/snapshots&lt;/url>
+        &lt;/snapshotRepository>
+    &lt;/distributionManagement>
+        </pre>
+        <p>
+            Posted June 28th, 2021
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
