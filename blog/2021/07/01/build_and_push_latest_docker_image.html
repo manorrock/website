@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Build and push latest Docker image</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Build and push latest Docker image</h1>
+        <p>
+            The following is a quick recipe to build and push a latest Docker
+            image.
+        </p>
+        <pre>
+
+name: docker-latest
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - run: |
+        docker build -f Dockerfile -t myusername/myimagename .
+        docker push myusername/myimagename
+        </pre>
+        <p>
+           Add the DOCKER_USERNAME and DOCKER_PASSWORD as secrets to your
+           GitHub account. Adjust the image name in both the build and the push
+           command.
+        </p>
+        <p>
+            Posted July 1st, 2021
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
