@@ -569,8 +569,27 @@ available for use. And internally it has private fields to store said
 information.</p>
 <pre><code class="lang-java">  <span class="hljs-function">record <span class="hljs-title">Person</span><span class="hljs-params">(
     String firstName,
-    String lastName)</span>
-</span></code></pre>
+    String lastName)</span> </span>{
+  }
+</code></pre>
+<h2 id="overriding-default-constructor">Overriding default constructor</h2>
+<p>The example below builds on the previos example to add some validation to the
+default constructor.</p>
+<pre><code class="lang-java">  <span class="hljs-function">record <span class="hljs-title">Person</span><span class="hljs-params">(
+    String firstName,
+    String lastName)</span> </span>{
+
+    Person {
+      <span class="hljs-keyword">if</span> (firstName == <span class="hljs-keyword">null</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-function">nre <span class="hljs-title">IllegalArgumentException</span><span class="hljs-params">(<span class="hljs-string">&quot;First name cannot be null&quot;</span>)</span></span>;
+      }
+    }
+  }
+</code></pre>
+<h3 id="references">References</h3>
+<ol>
+<li><a href="https://openjdk.java.net/jeps/395" target="_blank">JEP 395: Records</a></li>
+</ol>
 
                                 
                                 </section>
@@ -614,7 +633,7 @@ information.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Records","level":"3.1","depth":1,"next":{"title":"Constructor","level":"3.1.1","depth":2,"anchor":"#constructor","path":"language/records.md","ref":"language/records.md#constructor","articles":[]},"previous":{"title":"StreamSupport","level":"2.3","depth":1,"path":"functional/stream-support.md","ref":"functional/stream-support.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","hints"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-10893862-1"},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"language/records.md","mtime":"2021-07-24T14:28:52.422Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-24T14:29:30.872Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Records","level":"3.1","depth":1,"next":{"title":"Constructor","level":"3.1.1","depth":2,"anchor":"#constructor","path":"language/records.md","ref":"language/records.md#constructor","articles":[]},"previous":{"title":"StreamSupport","level":"2.3","depth":1,"path":"functional/stream-support.md","ref":"functional/stream-support.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","hints"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-10893862-1"},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"language/records.md","mtime":"2021-07-26T23:56:43.698Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-26T23:57:23.201Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
