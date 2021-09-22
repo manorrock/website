@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Can Java cold-start?</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Can Java cold-start?</h1>
+        <p>
+            To answer this question we really need to define what is meant with
+            cold-start. In this blog series we will explore several ways to look
+            at this problem as illustrated by the list below.
+        </p>
+        <ol>
+            <li>Time it takes for the Java process to be up and running</li>
+            <li>Time it takes for your Java container to be up and running</li>
+            <li>Time it takes for your server-less Java process to be up and running</li>
+        </ol>
+        <p>
+            We now have several ways of looking at what cold-start is? But what
+            about a Java process? Can we also look at that in different ways?
+            Absolutely, for many organization when they talk about a Java process
+            they would mean a Spring Boot application. So which frameworks, 
+            libraries, servers and tools are we going to have a look at? See
+            below for the list we will explore.
+        </p>
+        <ol>
+            <li>Core Java SE APIs</li>
+            <li>Spring Boot</li>
+            <li>WildFly</li>
+            <li>Quarkus</li>
+            <li>Tomcat</li>
+            <li>Piranha</li>
+            <li>Micronaut</li>
+            <li>GraalVM</li>
+            <li>Helidon</li>
+            <li>Spring Native</li>
+            <li>Glassfish</li>
+            <li>Payara</li>
+            <li>Vert.X</li>
+            <li>OpenLiberty</li>
+        </ol>
+        <p>
+            So how are we going to determine our numbers? For each entry in the 
+            list above we will write a HTTP endpoint that will return 
+            'Hello World' when invoked. And measure how long it takes for the
+            process to be up and running.
+        </p>
+        <p>
+            Posted September 22nd, 2021
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
