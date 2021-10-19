@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Can Java cold-start a Spring Boot based HTTP server?</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Can Java cold-start?</h1>
+        <h2>A Spring Boot based HTTP server</h2>
+        <p>
+            In this installment of the series we are using examples created
+            using Spring Boot to cold start the HTTP server.
+        </p>
+        <p>
+            If you want to run the experiment yourself you can download the
+            <a href="example.tar.gz">example.tar.gz</a> file.
+        </p>
+        <table border="1">
+            <tr>
+                <th>Example</th>
+                <th>Process start</th>
+                <th>Process ready</th>
+                <th>Process total</th>
+            </tr>
+            <tr>
+                <td>Example 6 - Spring Boot using Tomcat</td>
+                <td>919 ms</td>
+                <td>149 ms</td>
+                <td>1068 ms</td>
+            </tr>
+            <tr>
+                <td>Example 7 - Spring Boot using Jetty</td>
+                <td>955 ms</td>
+                <td>163 ms</td>
+                <td>1118 ms</td>
+            </tr>
+            <tr>
+                <td>Example 8 - Spring Boot using Undertow</td>
+                <td>969 ms</td>
+                <td>254 ms</td>
+                <td>1223 ms</td>
+            </tr>
+            <tr>
+                <td>Example 9 - Spring Boot using Reactive Netty</td>
+                <td>868 ms</td>
+                <td>252 ms</td>
+                <td>1120 ms</td>
+            </tr>
+            <tr>
+                <td>Example 10 - Spring Boot using Tomcat (Docker)</td>
+                <td>2,707 ms</td>
+                <td>211 ms</td>
+                <td>2,918 ms</td>
+            </tr>
+            <tr>
+                <td>Example 11 - Spring Boot using Jetty (Docker)</td>
+                <td>2,823 ms</td>
+                <td>247 ms</td>
+                <td>3,070 ms</td>
+            </tr>
+            <tr>
+                <td>Example 12 - Spring Boot using Undertow (Docker)</td>
+                <td>2,751 ms</td>
+                <td>400 ms</td>
+                <td>3,151 ms</td>
+            </tr>
+            <tr>
+                <td>Example 13 - Spring Boot using Reactive Netty (Docker)</td>
+                <td>2,627 ms</td>
+                <td>455 ms</td>
+                <td>3,082 ms</td>
+            </tr>
+        </table> <br/>
+        These numbers were collected on a Mac Mini M1 with 16GB using Java 17
+        <h3>Legend</h3>
+        <ul>
+            <li>Process start - the amount of time it takes before the JVM 
+                is executing your code.</li>
+            <li>Process ready time - the amount of time it takes for the HTTP 
+                server to be ready for processing.</li>
+            <li>Process total - the total time (process start + process 
+                ready).</li>
+        </ul>
+        <p>
+            If you have any comments, suggestions or concerns, please start a 
+            <a href="https://github.com/manorrock/website/discussions/categories/blog">
+                discussion
+            </a> on GitHub.
+        </p>
+        <p>
+            Posted October 19th, 2021
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
