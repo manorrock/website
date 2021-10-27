@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Can Java cold start a Piranha based HTTP service?</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Can Java cold start?</h1>
+        <h2>A Piranha based HTTP service</h2>
+        <p>
+            In this installment of the <a href="../../09/22/can_java_cold_start.html">series</a>
+            we are using examples running on Piranha to cold start the HTTP service.
+        </p>
+        <p>
+            If you want to run the experiment yourself you can download the
+            <a href="example.tar.gz">example.tar.gz</a> file.
+        </p>
+        <table border="1">
+            <tr>
+                <th>Example</th>
+                <th>Process start</th>
+                <th>Process ready</th>
+                <th>Process total</th>
+            </tr>
+            <tr>
+                <td>Example 20 - Piranha Nano</td>
+                <td>78 ms</td>
+                <td>61 ms</td>
+                <td>139 ms</td>
+            </tr>
+            <tr>
+                <td>Example 21 - Piranha Embedded</td>
+                <td>79 ms</td>
+                <td>62 ms</td>
+                <td>141 ms</td>
+            </tr>
+            <tr>
+                <td>Example 22 - Piranha Micro</td>
+                <td>1,971 ms</td>
+                <td>6 ms</td>
+                <td>1,977 ms</td>
+            </tr>
+            <tr>
+                <td>Example 23 - Piranha Server</td>
+                <td>221 ms</td>
+                <td>19 ms</td>
+                <td>240 ms</td>
+            </tr>
+            <tr>
+                <td>Example 24 - Piranha Nano (Docker)</td>
+                <td>434 ms</td>
+                <td>70 ms</td>
+                <td>504 ms</td>
+            </tr>
+            <tr>
+                <td>Example 25 - Piranha Embedded (Docker)</td>
+                <td>448 ms</td>
+                <td>60 ms</td>
+                <td>508 ms</td>
+            </tr>
+            <tr>
+                <td>Example 26 - Piranha Micro (Docker)</td>
+                <td>12,256 ms</td>
+                <td>7 ms</td>
+                <td>12,263 ms</td>
+            </tr>
+            <tr>
+                <td>Example 27 - Piranha Server (Docker)</td>
+                <td>797 ms</td>
+                <td>79 ms</td>
+                <td>876 ms</td>
+            </tr>
+        </table> <br/>
+        These numbers were collected on a Mac Mini M1 with 16GB using Java 17
+        <h3>Legend</h3>
+        <ul>
+            <li>Process start - the amount of time it takes before the JVM 
+                is executing your code.</li>
+            <li>Process ready time - the amount of time it takes for the HTTP 
+                server to be ready for processing.</li>
+            <li>Process total - the total time (process start + process 
+                ready).</li>
+        </ul>
+        <p>
+            If you have any comments, suggestions or concerns, please start a 
+            <a href="https://github.com/manorrock/website/discussions/categories/blog">
+                discussion
+            </a> on GitHub.
+        </p>
+        <p>
+            Posted October 26th, 2021
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
