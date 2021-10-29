@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Can Java cold start a Helidon based HTTP service?</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Can Java cold start?</h1>
+        <h2>A Helidon based HTTP service</h2>
+        <p>
+            In this installment of the <a href="../../09/22/can_java_cold_start.html">series</a>
+            we are using examples running on Helidon to cold start the HTTP service.
+        </p>
+        <p>
+            If you want to run the experiment yourself you can download the
+            <a href="example.tar.gz">example.tar.gz</a> file.
+        </p>
+        <table border="1">
+            <tr>
+                <th>Example</th>
+                <th>Process start</th>
+                <th>Process ready</th>
+                <th>Process total</th>
+            </tr>
+            <tr>
+                <td>Example 30 - Helidon SE</td>
+                <td>76 ms</td>
+                <td>243 ms</td>
+                <td>319 ms</td>
+            </tr>
+            <tr>
+                <td>Example 31 - Helidon MP</td>
+                <td>581 ms</td>
+                <td>285 ms</td>
+                <td>866 ms</td>
+            </tr>
+            <tr>
+                <td>Example 32 - Helidon SE (Docker)</td>
+                <td>396 ms</td>
+                <td>601 ms</td>
+                <td>997 ms</td>
+            </tr>
+            <tr>
+                <td>Example 33 - Helidon MP (Docker)</td>
+                <td>1,764 ms</td>
+                <td>423 ms</td>
+                <td>2,187 ms</td>
+            </tr>
+        </table> <br/>
+        These numbers were collected on a Mac Mini M1 with 16GB using Java 17
+        <h3>Legend</h3>
+        <ul>
+            <li>Process start - the amount of time it takes before the JVM 
+                is executing your code.</li>
+            <li>Process ready time - the amount of time it takes for the HTTP 
+                server to be ready for processing.</li>
+            <li>Process total - the total time (process start + process 
+                ready).</li>
+        </ul>
+        <p>
+            If you have any comments, suggestions or concerns, please start a 
+            <a href="https://github.com/manorrock/website/discussions/categories/blog">
+                discussion
+            </a> on GitHub.
+        </p>
+        <p>
+            Posted October 28th, 2021
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
