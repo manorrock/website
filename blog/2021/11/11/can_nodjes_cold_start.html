@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Can Ruby cold-start?</title>
+        <title>Can NodeJS cold-start?</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
@@ -28,11 +28,11 @@
         </script>
     </head>
     <body>
-        <h1>Can Ruby cold-start?</h1>
-        <h2>A Ruby based HTTP service</h2>
+        <h1>Can NodeJS cold-start?</h1>
+        <h2>A NodeJS based HTTP service as a comparison</h2>
         <p>
             In this installment of the <a href="../../09/22/can_java_cold_start.html">series</a>
-            we are using examples created using Ruby to cold start a HTTP service.
+            we are using examples created using NodeJS to cold start a HTTP service.
         </p>
         <p>
             If you want to run the experiment yourself you can download the
@@ -46,16 +46,16 @@
                 <th>Process total</th>
             </tr>
             <tr>
-                <td>Example 42 - Ruby</td>
-                <td>80 ms</td>
-                <td>0 ms</td>
-                <td>80 ms</td>
+                <td>Example 44 - NodeJS</td>
+                <td>47 ms</td>
+                <td>4 ms</td>
+                <td>51 ms</td>
             </tr>
             <tr>
-                <td>Example 43 - Ruby (Docker)</td>
-                <td>384 ms</td>
-                <td>0 ms</td>
-                <td>384 ms</td>
+                <td>Example 45 - NodeJS (Docker)</td>
+                <td>344 ms</td>
+                <td>3 ms</td>
+                <td>347 ms</td>
             </tr>
         </table> <br/>
         These numbers were collected on a Mac Mini M1 with 16GB using Java 17
@@ -77,7 +77,7 @@
             </a> on GitHub.
         </p>
         <p>
-            Posted November 10th, 2021
+            Posted November 11th, 2021
         </p>
         <p>
             <a href="../../../index.html">Up</a>
