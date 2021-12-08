@@ -48,6 +48,12 @@
             Add the following plugin definition to your project POM file
             to make it easy to use the plugin. 
         </p>
+        <pre>
+    &lt;plugin>
+        &lt;groupId>cloud.piranha.maven.plugins&lt;/groupId>
+        &lt;artifactId>piranha-server-maven-plugin&lt;/artifactId>
+    &lt;/plugin>
+        </pre>
         <h2>Using the run goal</h2>
         <p>
             If you want to run Piranha Server and have the console echo its
@@ -62,6 +68,9 @@
         <p>
             If you want to stop a running Piranha Server that you previously
             started use the <code>piranha-server:stop</code> goal.
+        </p>
+        <p>
+            And that is all that is needed to start your inner-loop development!
         </p>
         <p>
             Posted December 8th, 2021
