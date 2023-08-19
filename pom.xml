@@ -6,6 +6,6 @@
     <artifactId>project</artifactId>
     <version>1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Manorrock - Website</name>
+    <name>Manorrock Website</name>
     <url>https://www.manorrock.com</url>
 </project>
