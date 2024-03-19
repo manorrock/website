@@ -1,0 +1,10 @@
+
+ README
+ ======
+
+ To build the book you will need to install all the relevant tools,
+ or open it in a VSCode DevContainer.
+
+ Then to build use:
+
+  npx honkit serve

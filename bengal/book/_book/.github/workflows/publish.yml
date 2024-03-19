@@ -1,0 +1,28 @@
+name: publish
+on:
+    workflow_dispatch:
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout Sources
+          uses: actions/checkout@v3
+        - name: Build with honkit and publish to Bengal website
+          run: |
+            npm install honkit
+            npm install gitbook-plugin-hints
+            npx honkit build
+            git clone https://${{ secrets.GIT_USERNAME }}:${{ secrets.GIT_TOKEN }}@github.com/manorrock/website
+            cd website
+            rm -rf bengal/book || true
+            mkdir -p bengal/book
+            mv ../_book bengal/book
+            rm -rf .devcontainer
+            rm -rf .github
+            rm -rf .gitignore
+            git config --global user.email "noreply@manorrock.com"
+            git config --global user.name "Automated publish"
+            git add .
+            git commit -a -m "Automated publishing, see https://github.com/manorrock/bengal-book"
+            git push
+    
