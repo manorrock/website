@@ -3,9 +3,9 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Other constructs · HonKit</title>
+        <title>First steps · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="Other constructs">
+        <meta name="description" content="First Steps">
         <meta name="generator" content="HonKit 5.1.4">
         
         
@@ -60,8 +60,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="primitives.html" />
     
-    <link rel="prev" href="controlflow.html" />
+    
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -110,7 +112,7 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="firststeps.html">
+        <li class="chapter active" data-level="2.1" data-path="firststeps.html">
             
                 <a href="firststeps.html">
             
@@ -401,7 +403,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.4" data-path="other.html">
+        <li class="chapter " data-level="2.4" data-path="other.html">
             
                 <a href="other.html">
             
@@ -463,7 +465,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Other constructs</a>
+        <a href="." >First steps</a>
     </h1>
 </div>
 
@@ -478,65 +480,37 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="native-code">Native code</h3>
-<p>To make it possible to interact with the operating system and/or the underlying runtime Bengal comes with a class that makes it possible for you to use. The capabilities of that class are limited to what the underlying operating system and/or runtime support so this class is the only non-portable part of Bengal.</p>
-<h3 id="java-integration">Java integration</h3>
-<p>The Java integration is delivered through the<code>Java</code> class. To interact with Java you would see something like the code snippet below:</p>
-<pre><code>  String myString = &quot;My String&quot;;
-  Java java = new Java();
-  java.callStaticMethod(&quot;java.lang.System.out.println&quot;, myString)
-</code></pre><p>The code above calls the <code>callStaticMethod</code> method which asks to call the<code>java.lang.System.out.println</code> static Java method and it passes <code>myString</code>. Note that the implementation of the Bengal runtime converts it from the Bengal class to the corresponding Java class. The following table illustrates what conversion is done.</p>
-<table>
-<thead>
-<tr>
-<th>Bengal Class</th>
-<th>Java Class</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>String</td>
-<td>java.lang.String</td>
-</tr>
-</tbody>
-</table>
-<h3 id="posix-integration">Posix integration</h3>
-<p>The Posix integration is delvered through the <code>Posix</code> class. To interact with
-a Posix compatible OS you would see something like the code snippet below:</p>
-<pre><code>  String myString = &quot;My String&quot;;
-  Posix posix = new Posix();
-  posix.call(&quot;mylib.so&quot;, &quot;myfunction&quot;, myString);
-</code></pre><p>The code above calls the <code>call</code> method which asks to use the <code>mylib.so</code> library
-to call the <code>myfunction</code> function and it passes <code>myString</code>. Note that the
-implementation of the Bengal runtime converts it from the Bengal class to the
-corresponding Posix equivalent. The following table illustrates what conversion
-is done.</p>
-<table>
-<thead>
-<tr>
-<th>Bengal Class</th>
-<th>Posix equivalent</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>String</td>
-<td>char*</td>
-</tr>
-</tbody>
-</table>
-<h2 id="default-classes">Default classes</h2>
-<p>As the primitive types in Bengal are also classes you will have at minimum the
-following classes available in any Bengal runtime.</p>
-<ol>
-<li>Boolean</li>
-<li>String</li>
-<li>Integer</li>
-<li>Character</li>
-<li>Float</li>
-<li>Nil</li>
-</ol>
-
+                                <h3 id="calling-a--method">Calling a  method</h3>
+<p>The example below calls the <code>tick</code> method on the <code>timer</code> instance.</p>
+<pre><code>  timer.tick();
+</code></pre><h3 id="assigning-a-result">Assigning a result</h3>
+<p>The example below calls the <code>reverse</code> method on the <code>myInstance</code> instance and it will assign the result to <code>myResult</code>.</p>
+<pre><code>  myResult = myInstance.reverse();
+</code></pre><h3 id="constructing-a-new-instance">Constructing a new instance</h3>
+<p>The example below creates an instance of <code>MyClass</code>. </p>
+<pre><code>  myInstance = new MyClass();
+</code></pre><h3 id="releasing-an-existing-instance">Releasing an existing instance</h3>
+<p>The example below shows how to release an instance.</p>
+<pre><code>  delete(myInstance);
+</code></pre><h3 id="defining-a-class">Defining a class</h3>
+<p>If you want to reuse your code you might consider wrapping it into a class
+which can be constructed using the <code>new</code> keyword. The example below shows how
+you would define the class named <code>MyClass</code>.</p>
+<pre><code>  class MyClass {
+  }
+</code></pre><h3 id="defining-a-class-method">Defining a class method</h3>
+<p>A class in and of itself does not do anything so you will need to define some 
+class methods that can be called. The example below defines a class method for
+pushing an item.</p>
+<pre><code>  method push(item) {
+  }
+</code></pre><h3 id="defining-a-class-variable">Defining a class variable</h3>
+<p>A class would need to be able to store things so you can create variables that
+are only visible to the class. The example below does that.</p>
+<pre><code>  class MyClass {
+    var myVariable;
+  }
+</code></pre>
                                 
                                 </section>
                             
@@ -563,10 +537,14 @@ following classes available in any Bengal runtime.</p>
 
             
                 
-                <a href="controlflow.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Controlling the flow">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="primitives.html" class="navigation navigation-next " aria-label="Next page: Dealing with primitives">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -575,7 +553,7 @@ following classes available in any Bengal runtime.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Other constructs","title":"Other constructs","level":"2.4","depth":1,"previous":{"title":"Controlling the flow","level":"2.3","depth":1,"path":"controlflow.md","ref":"controlflow.md","articles":[{"title":"If then statement","level":"2.3.1","depth":2,"anchor":"#if-then-statement","path":"controlflow.md","ref":"controlflow.md#if-then-statement","articles":[]},{"title":"If then else statement","level":"2.3.2","depth":2,"anchor":"#if-then-else-statement","path":"controlflow.md","ref":"controlflow.md#if-then-else-statement","articles":[]},{"title":"While statement","level":"2.3.3","depth":2,"anchor":"#while-statement","path":"controlflow.md","ref":"controlflow.md#while-statement","articles":[]},{"title":"Do while statement","level":"2.3.4","depth":2,"anchor":"#do-while-statement","path":"controlflow.md","ref":"controlflow.md#do-while-statement","articles":[]},{"title":"For statement","level":"2.3.5","depth":2,"anchor":"#for-statement","path":"controlflow.md","ref":"controlflow.md#for-statement","articles":[]}]},"articles":[{"title":"Native code","level":"2.4.1","depth":2,"anchor":"#native-code","path":"other.md","ref":"other.md#native-code","articles":[]}],"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"other.md","mtime":"2024-03-19T12:53:30.020Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-03-19T12:53:40.704Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"First Steps","title":"First steps","level":"2.1","depth":1,"next":{"title":"Dealing with primitives","level":"2.2","depth":1,"path":"primitives.md","ref":"primitives.md","articles":[{"title":"Using booleans","level":"2.2.1","depth":2,"anchor":"#using-booleans","path":"primitives.md","ref":"primitives.md#using-booleans","articles":[]},{"title":"Using characters","level":"2.2.2","depth":2,"anchor":"#using-characters","path":"primitives.md","ref":"primitives.md#using-characters","articles":[]},{"title":"Using integers","level":"2.2.3","depth":2,"anchor":"#using-integers","path":"primitives.md","ref":"primitives.md#using-integers","articles":[]},{"title":"Using nil","level":"2.2.4","depth":2,"anchor":"#using-nil","path":"primitives.md","ref":"primitives.md#using-nil","articles":[]},{"title":"Using strings","level":"2.2.5","depth":2,"anchor":"#using-strings","path":"primitives.md","ref":"primitives.md#using-strings","articles":[]},{"title":"Using floating point numbers","level":"2.2.6","depth":2,"anchor":"#using-floating-point-numbers","path":"primitives.md","ref":"primitives.md#using-floating-point-numbers","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"articles":[{"title":"Calling a method","level":"2.1.1","depth":2,"anchor":"#calling-a-method","path":"firststeps.md","ref":"firststeps.md#calling-a-method","articles":[]},{"title":"Assigning a result","level":"2.1.2","depth":2,"anchor":"#assigning-a-result","path":"firststeps.md","ref":"firststeps.md#assigning-a-result","articles":[]},{"title":"Constructing a new instance","level":"2.1.3","depth":2,"anchor":"#constructing-a-new-instance","path":"firststeps.md","ref":"firststeps.md#constructing-a-new-instance","articles":[]},{"title":"Release an existing instance","level":"2.1.4","depth":2,"anchor":"#release-an-existing-instance","path":"firststeps.md","ref":"firststeps.md#release-an-existing-instance","articles":[]},{"title":"Defining a class","level":"2.1.5","depth":2,"anchor":"#defining-a-class","path":"firststeps.md","ref":"firststeps.md#defining-a-class","articles":[]},{"title":"Defining a class method","level":"2.1.6","depth":2,"anchor":"#defining-a-class-method","path":"firststeps.md","ref":"firststeps.md#defining-a-class-method","articles":[]},{"title":"Defining a class variable","level":"2.1.7","depth":2,"anchor":"#defining-a-class-variable","path":"firststeps.md","ref":"firststeps.md#defining-a-class-variable","articles":[]}],"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"firststeps.md","mtime":"2024-03-19T12:58:01.806Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-03-19T12:58:14.463Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

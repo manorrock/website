@@ -3,9 +3,9 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Dealing with primitives · HonKit</title>
+        <title>Controlling the flow · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="Dealing with primitives">
+        <meta name="description" content="Control Flow">
         <meta name="generator" content="HonKit 5.1.4">
         
         
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="controlflow.html" />
+    <link rel="next" href="other.html" />
     
     
-    <link rel="prev" href="firststeps.html" />
+    <link rel="prev" href="primitives.html" />
     
 
     </head>
@@ -222,7 +222,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2" data-path="primitives.html">
+        <li class="chapter " data-level="2.2" data-path="primitives.html">
             
                 <a href="primitives.html">
             
@@ -319,7 +319,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="controlflow.html">
+        <li class="chapter active" data-level="2.3" data-path="controlflow.html">
             
                 <a href="controlflow.html">
             
@@ -465,7 +465,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Dealing with primitives</a>
+        <a href="." >Controlling the flow</a>
     </h1>
 </div>
 
@@ -480,25 +480,45 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="dealing-with-primitives">Dealing with primitives</h2>
-<h3 id="using-booleans">Using booleans</h3>
-<p>The example below creates a Boolean instance with the value of true.</p>
-<pre><code>  myBoolean = true;
-</code></pre><h3 id="using-characters">Using characters</h3>
-<p>The example below creates a Character instance with the value of &apos;a&apos;.</p>
-<pre><code>  myCharacter = &apos;a&apos;;
-</code></pre><h3 id="using-integers">Using integers</h3>
-<p>The example below creates an Integer instance with the value of 1234. </p>
-<pre><code>  myInteger = 1234;
-</code></pre><h3 id="using-nil">Using nil</h3>
-<p>The example below creates a Nil instance.</p>
-<pre><code>  myObject = nil;
-</code></pre><h3 id="using-strings">Using strings</h3>
-<p>The example below creates a String instance with the value of &quot;1234&quot;. </p>
-<pre><code>  myString = &quot;1234&quot;;
-</code></pre><h3 id="using-floating-point-numbers">Using floating point numbers</h3>
-<p>The example below creates an Float instance with the value of 1.234. </p>
-<pre><code>  myFloat = 1.234;
+                                <h2 id="controlling-the-flow">Controlling the flow</h2>
+<h3 id="if-then-statement">If then statement</h3>
+<p>The example below calls the <code>isAdmin</code> method on <code>myObject</code> to
+determine if an admin email should be sent.</p>
+<pre><code>  if (myObject.isAdmin()) then {
+    myObject.sendAdminEmail();
+  }
+</code></pre><h3 id="if-then-else-statement">If then else statement</h3>
+<p>The example below calls the <code>isAdmin</code> method on <code>myObject</code> to 
+determine if an admin email or a non-admin email needs to be sent.</p>
+<pre><code>  if (myObject.isAdmin()) then {
+    myObject.sendAdminEmail();
+  } else {
+    myObkect.sendNonAdminEmail();
+  }
+</code></pre><h3 id="while-statement">While statement</h3>
+<p>The example below calls the <code>hasMoreItems</code> method on <code>myObject</code> to
+determine whether or not it has more items and if it does it goes into the loop
+calling the <code>removeItem</code> method on <code>myObject</code>.</p>
+<pre><code>  while (myObject.hasMoreItems()) {
+    myObject.removeItem();
+  }
+</code></pre><h3 id="do-while-statement">Do while statement</h3>
+<p>The example below calls the <code>decrementTime</code> method on <code>myObject</code> and
+then determines whether or not to terminate the loop by calling the
+<code>isMoreThanOneYearOld</code> method on <code>myObject</code>.</p>
+<pre><code>  do {
+    myObject.decrementTime();
+  } while (myObject.isMoreThanOneYearOld());
+</code></pre><h3 id="for-statement">For statement</h3>
+<p>The example below first initializes <code>i</code>. And then for every iteration of
+the loop it determines if the loop needs to be entered by calling the 
+<code>isLessThan</code> method on <code>i</code> and if it must be entered it calls the
+the <code>tick</code> method on <code>myObject</code>. And it completes the iteration by
+calling the <code>incrementOne</code> method on <code>i</code>. If the loop must not be
+entered it continues with any statement past the for statement. </p>
+<pre><code>  for(i=0; i.lessThan(10); i.incrementOne()) {
+    myObject.tick();
+  }
 </code></pre>
                                 
                                 </section>
@@ -526,12 +546,12 @@
 
             
                 
-                <a href="firststeps.html" class="navigation navigation-prev " aria-label="Previous page: First steps">
+                <a href="primitives.html" class="navigation navigation-prev " aria-label="Previous page: Dealing with primitives">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="controlflow.html" class="navigation navigation-next " aria-label="Next page: Controlling the flow">
+                <a href="other.html" class="navigation navigation-next " aria-label="Next page: Other constructs">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -542,7 +562,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Dealing with primitives","title":"Dealing with primitives","level":"2.2","depth":1,"next":{"title":"Controlling the flow","level":"2.3","depth":1,"path":"controlflow.md","ref":"controlflow.md","articles":[{"title":"If then statement","level":"2.3.1","depth":2,"anchor":"#if-then-statement","path":"controlflow.md","ref":"controlflow.md#if-then-statement","articles":[]},{"title":"If then else statement","level":"2.3.2","depth":2,"anchor":"#if-then-else-statement","path":"controlflow.md","ref":"controlflow.md#if-then-else-statement","articles":[]},{"title":"While statement","level":"2.3.3","depth":2,"anchor":"#while-statement","path":"controlflow.md","ref":"controlflow.md#while-statement","articles":[]},{"title":"Do while statement","level":"2.3.4","depth":2,"anchor":"#do-while-statement","path":"controlflow.md","ref":"controlflow.md#do-while-statement","articles":[]},{"title":"For statement","level":"2.3.5","depth":2,"anchor":"#for-statement","path":"controlflow.md","ref":"controlflow.md#for-statement","articles":[]}]},"previous":{"title":"First steps","level":"2.1","depth":1,"path":"firststeps.md","ref":"firststeps.md","articles":[{"title":"Calling a method","level":"2.1.1","depth":2,"anchor":"#calling-a-method","path":"firststeps.md","ref":"firststeps.md#calling-a-method","articles":[]},{"title":"Assigning a result","level":"2.1.2","depth":2,"anchor":"#assigning-a-result","path":"firststeps.md","ref":"firststeps.md#assigning-a-result","articles":[]},{"title":"Constructing a new instance","level":"2.1.3","depth":2,"anchor":"#constructing-a-new-instance","path":"firststeps.md","ref":"firststeps.md#constructing-a-new-instance","articles":[]},{"title":"Release an existing instance","level":"2.1.4","depth":2,"anchor":"#release-an-existing-instance","path":"firststeps.md","ref":"firststeps.md#release-an-existing-instance","articles":[]},{"title":"Defining a class","level":"2.1.5","depth":2,"anchor":"#defining-a-class","path":"firststeps.md","ref":"firststeps.md#defining-a-class","articles":[]},{"title":"Defining a class method","level":"2.1.6","depth":2,"anchor":"#defining-a-class-method","path":"firststeps.md","ref":"firststeps.md#defining-a-class-method","articles":[]},{"title":"Defining a class variable","level":"2.1.7","depth":2,"anchor":"#defining-a-class-variable","path":"firststeps.md","ref":"firststeps.md#defining-a-class-variable","articles":[]}]},"articles":[{"title":"Using booleans","level":"2.2.1","depth":2,"anchor":"#using-booleans","path":"primitives.md","ref":"primitives.md#using-booleans","articles":[]},{"title":"Using characters","level":"2.2.2","depth":2,"anchor":"#using-characters","path":"primitives.md","ref":"primitives.md#using-characters","articles":[]},{"title":"Using integers","level":"2.2.3","depth":2,"anchor":"#using-integers","path":"primitives.md","ref":"primitives.md#using-integers","articles":[]},{"title":"Using nil","level":"2.2.4","depth":2,"anchor":"#using-nil","path":"primitives.md","ref":"primitives.md#using-nil","articles":[]},{"title":"Using strings","level":"2.2.5","depth":2,"anchor":"#using-strings","path":"primitives.md","ref":"primitives.md#using-strings","articles":[]},{"title":"Using floating point numbers","level":"2.2.6","depth":2,"anchor":"#using-floating-point-numbers","path":"primitives.md","ref":"primitives.md#using-floating-point-numbers","articles":[]}],"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"primitives.md","mtime":"2024-03-19T12:53:30.020Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-03-19T12:53:40.704Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Control Flow","title":"Controlling the flow","level":"2.3","depth":1,"next":{"title":"Other constructs","level":"2.4","depth":1,"path":"other.md","ref":"other.md","articles":[{"title":"Native code","level":"2.4.1","depth":2,"anchor":"#native-code","path":"other.md","ref":"other.md#native-code","articles":[]}]},"previous":{"title":"Dealing with primitives","level":"2.2","depth":1,"path":"primitives.md","ref":"primitives.md","articles":[{"title":"Using booleans","level":"2.2.1","depth":2,"anchor":"#using-booleans","path":"primitives.md","ref":"primitives.md#using-booleans","articles":[]},{"title":"Using characters","level":"2.2.2","depth":2,"anchor":"#using-characters","path":"primitives.md","ref":"primitives.md#using-characters","articles":[]},{"title":"Using integers","level":"2.2.3","depth":2,"anchor":"#using-integers","path":"primitives.md","ref":"primitives.md#using-integers","articles":[]},{"title":"Using nil","level":"2.2.4","depth":2,"anchor":"#using-nil","path":"primitives.md","ref":"primitives.md#using-nil","articles":[]},{"title":"Using strings","level":"2.2.5","depth":2,"anchor":"#using-strings","path":"primitives.md","ref":"primitives.md#using-strings","articles":[]},{"title":"Using floating point numbers","level":"2.2.6","depth":2,"anchor":"#using-floating-point-numbers","path":"primitives.md","ref":"primitives.md#using-floating-point-numbers","articles":[]}]},"articles":[{"title":"If then statement","level":"2.3.1","depth":2,"anchor":"#if-then-statement","path":"controlflow.md","ref":"controlflow.md#if-then-statement","articles":[]},{"title":"If then else statement","level":"2.3.2","depth":2,"anchor":"#if-then-else-statement","path":"controlflow.md","ref":"controlflow.md#if-then-else-statement","articles":[]},{"title":"While statement","level":"2.3.3","depth":2,"anchor":"#while-statement","path":"controlflow.md","ref":"controlflow.md#while-statement","articles":[]},{"title":"Do while statement","level":"2.3.4","depth":2,"anchor":"#do-while-statement","path":"controlflow.md","ref":"controlflow.md#do-while-statement","articles":[]},{"title":"For statement","level":"2.3.5","depth":2,"anchor":"#for-statement","path":"controlflow.md","ref":"controlflow.md#for-statement","articles":[]}],"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"controlflow.md","mtime":"2024-03-19T12:58:01.806Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-03-19T12:58:14.463Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
