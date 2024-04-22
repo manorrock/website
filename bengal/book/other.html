@@ -479,7 +479,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h3 id="native-code">Native code</h3>
-<p>To make it possible to interact with the operating system and/or the underlying runtime Bengal comes with a class that makes it possible for you to use. The capabilities of that class are limited to what the underlying operating system and/or runtime support so this class is the only non-portable part of Bengal.</p>
+<p>To make it possible to interact with the operating system and/or the underlying runtime Bengal comes with a class that makes it possible for you to use. The capabilities of that class are limited to what the underlying operating system and/or runtime supports so this class is the only non-portable part of Bengal.</p>
 <h3 id="java-integration">Java integration</h3>
 <p>The Java integration is delivered through the<code>Java</code> class. To interact with Java you would see something like the code snippet below:</p>
 <pre><code>  String myString = &quot;My String&quot;;
@@ -526,7 +526,7 @@ is done.</p>
 </tbody>
 </table>
 <h2 id="default-classes">Default classes</h2>
-<p>As the primitive types in Bengal are also classes you will have at minimum the
+<p>As the primitive types in Bengal are actually classes you will have at minimum the
 following classes available in any Bengal runtime.</p>
 <ol>
 <li>Boolean</li>
@@ -535,6 +535,8 @@ following classes available in any Bengal runtime.</p>
 <li>Character</li>
 <li>Float</li>
 <li>Nil</li>
+<li>Java (when the underlying runtime is Java)</li>
+<li>Posix</li>
 </ol>
 
                                 
@@ -575,7 +577,7 @@ following classes available in any Bengal runtime.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Other constructs","title":"Other constructs","level":"2.4","depth":1,"previous":{"title":"Controlling the flow","level":"2.3","depth":1,"path":"controlflow.md","ref":"controlflow.md","articles":[{"title":"If then statement","level":"2.3.1","depth":2,"anchor":"#if-then-statement","path":"controlflow.md","ref":"controlflow.md#if-then-statement","articles":[]},{"title":"If then else statement","level":"2.3.2","depth":2,"anchor":"#if-then-else-statement","path":"controlflow.md","ref":"controlflow.md#if-then-else-statement","articles":[]},{"title":"While statement","level":"2.3.3","depth":2,"anchor":"#while-statement","path":"controlflow.md","ref":"controlflow.md#while-statement","articles":[]},{"title":"Do while statement","level":"2.3.4","depth":2,"anchor":"#do-while-statement","path":"controlflow.md","ref":"controlflow.md#do-while-statement","articles":[]},{"title":"For statement","level":"2.3.5","depth":2,"anchor":"#for-statement","path":"controlflow.md","ref":"controlflow.md#for-statement","articles":[]}]},"articles":[{"title":"Native code","level":"2.4.1","depth":2,"anchor":"#native-code","path":"other.md","ref":"other.md#native-code","articles":[]}],"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"other.md","mtime":"2024-04-11T22:03:17.265Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-04-11T22:03:28.568Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Other constructs","title":"Other constructs","level":"2.4","depth":1,"previous":{"title":"Controlling the flow","level":"2.3","depth":1,"path":"controlflow.md","ref":"controlflow.md","articles":[{"title":"If then statement","level":"2.3.1","depth":2,"anchor":"#if-then-statement","path":"controlflow.md","ref":"controlflow.md#if-then-statement","articles":[]},{"title":"If then else statement","level":"2.3.2","depth":2,"anchor":"#if-then-else-statement","path":"controlflow.md","ref":"controlflow.md#if-then-else-statement","articles":[]},{"title":"While statement","level":"2.3.3","depth":2,"anchor":"#while-statement","path":"controlflow.md","ref":"controlflow.md#while-statement","articles":[]},{"title":"Do while statement","level":"2.3.4","depth":2,"anchor":"#do-while-statement","path":"controlflow.md","ref":"controlflow.md#do-while-statement","articles":[]},{"title":"For statement","level":"2.3.5","depth":2,"anchor":"#for-statement","path":"controlflow.md","ref":"controlflow.md#for-statement","articles":[]}]},"articles":[{"title":"Native code","level":"2.4.1","depth":2,"anchor":"#native-code","path":"other.md","ref":"other.md#native-code","articles":[]}],"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{"info":"fa fa-info-circle","tip":"fa fa-mortar-board","danger":"fa fa-exclamation-circle","working":"fa fa-wrench"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"other.md","mtime":"2024-04-22T22:10:23.803Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-04-22T22:10:36.796Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
