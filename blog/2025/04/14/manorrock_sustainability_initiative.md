@@ -68,4 +68,4 @@ Thank you for your continued support of the Manorrock ecosystem.
 
 ---
 
-*Questions about this initiative? Please reach out via [contact information] or comment on the repository issues as they are created.*
+*Questions about this initiative? Please reach out via info@manorrock.com or comment on the repository issues as they are created.*
