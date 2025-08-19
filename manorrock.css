@@ -1,3 +1,32 @@
+/* Product screenshots for ecommerce-free.html */
+.screenshot {
+    max-width: 100%;
+    display: block;
+    margin-bottom: 1em;
+}
+.screenshot-main {
+    margin-bottom: 2em;
+}
+
+.copyright {
+    color: #888;
+    font-size: small;
+    margin-top: 2em;
+}
+/* Product section for e-commerce integration */
+.product-section {
+    margin-bottom: 2em;
+}
+
+.cta-link {
+    font-weight: bold;
+    color: #0000cc;
+    text-decoration: underline;
+}
+
+.more-products {
+    color: #888;
+}
 a {
     color: #0000cc;
 }
