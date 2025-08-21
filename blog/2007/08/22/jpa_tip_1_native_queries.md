@@ -16,4 +16,4 @@ As you can see by reading the Java code, if you do a native query you can map th
 
 *Posted August 22, 2007*
 
-[Up](../../../index.html)
+[Up](../../../)
