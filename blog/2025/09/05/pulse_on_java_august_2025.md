@@ -1,5 +1,7 @@
 # ☕ Pulse on Java – August 2025 Edition
 
+*Your AI-generated monthly roundup of Java framework and platform updates.*
+
 Welcome to the August 2025 edition of *Pulse on Java*, where we track the latest releases, innovations, and trends across the Java ecosystem. This month saw Java 25 reach its first release candidate milestone ahead of its September launch, the Apache Groovy language hitting a major 5.0 GA release, and steady progress across popular frameworks (from Spring’s next-gen preview to Quarkus’s new features). Many updates focused on **performance optimizations** and **security fixes**, as the community gears up for Java’s next long-term support release[1](https://www.infoq.com/news/2025/08/java-news-roundup-aug04-2025/)[1](https://www.infoq.com/news/2025/08/java-news-roundup-aug04-2025/). There was plenty of buzz in August – from the JVM Language Summit discussions to new AI integrations – underscoring that Java’s momentum remains as strong as ever.
 
 <!-- Copilot-Researcher-Visualization -->
