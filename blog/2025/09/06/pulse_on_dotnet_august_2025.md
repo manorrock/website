@@ -1,4 +1,4 @@
-# ☕ Pulse on .NET – August 2025 Edition
+# 🟦 Pulse on .NET – August 2025 Edition
 
 *Your AI-generated monthly roundup of .NET framework and platform updates.* Welcome to the **August 2025 edition of Pulse on .NET**, where we track the latest releases, innovations, and trends across the .NET ecosystem. This month brought major GA releases, preview milestones, and AI-assisted tooling that are reshaping how .NET developers build modern applications. In this post, we’ll cover updates to the .NET SDK and runtime, improvements in developer tooling (from Visual Studio to GitHub Copilot), migration and modernization efforts for legacy apps, highlights from the community, and broader ecosystem developments (NuGet, MAUI, Blazor, Azure integration).
 
