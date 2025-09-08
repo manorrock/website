@@ -1,6 +1,6 @@
 # The Pulse on AI – August 2025 Edition
 
-*Your AI-generated monthly roundup of global AI developments, trends, and breakthroughs.*
+*Your AI-generated monthly roundup of global AI developments, trends, and breakthroughs. Please direct your comments directly to us at blog@manorrock.com*
 
 Welcome to the August 2025 edition of **The Pulse on AI**, where we track the latest releases, innovations, policy shifts, and industry trends across the AI ecosystem. This month was **pivotal for AI**, marked by the debut of a next-generation **GPT-5** model, tech giants launching their own AI systems, landmark **governance measures** taking effect, **surging enterprise adoption** in finance and beyond, and impressive **scientific breakthroughs** from new drugs to smarter algorithms. The landscape shows AI becoming more **powerful and pervasive** – and increasingly **managed responsibly** – as it reshapes industries and society.
 
