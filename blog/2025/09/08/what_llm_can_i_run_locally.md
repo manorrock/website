@@ -48,6 +48,7 @@ If you want to run a Large Language Model (LLM) on your own computer, you need t
 ---
 
 ### Summary Table
+
 | Choice                | What It Does                        | Beginner Tip                  |
 |-----------------------|-------------------------------------|-------------------------------|
 | Model                 | Pick size & type of LLM             | Start small, upgrade later    |
