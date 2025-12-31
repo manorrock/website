@@ -6,7 +6,7 @@ Today marks the conclusion of the Manorrock Sustainability Initiative, which beg
 
 ## What We Set Out to Do
 
-Nine months ago, we launched an initiative to ensure the long-term sustainability of the Manorrock project ecosystem. The goal was clear: invite passionate developers to become maintainers of projects they valued, ensuring continued quality and support while enabling community ownership.
+Nine months ago, we [launched an initiative](https://www.manorrock.com/blog/2025/04/14/manorrock_sustainability_initiative.html) to ensure the long-term sustainability of the Manorrock project ecosystem. The goal was clear: invite passionate developers to become maintainers of projects they valued, ensuring continued quality and support while enabling community ownership.
 
 For the Piranha projects specifically, we sought to transition them to an open source foundation where they could benefit from broader community governance and long-term institutional support.
 
