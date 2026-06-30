@@ -4,13 +4,13 @@
 
 The last three posts have a phrase in common that I kept letting slide. Extensions register their commands "with whichever AI coding agent integration you have set up." Presets do the same. Every time the workflow produced a command, something quietly made it show up in the tool you actually type into — and I never said what that something was. This time I will. The **integration** is the layer that takes Spec Kit's neutral commands and templates and renders them into the exact shape your coding agent expects, in the exact place it looks for them.
 
-That is why integrations come now. We have been working down the stack: bundles compose, extensions add, presets customize. But all three of those operate in Spec Kit's own vocabulary — a `speckit.plan` command, a `plan-template.md`. None of that means anything to Claude Code or Gemini CLI or Copilot until it has been translated into *their* conventions. The integration is the translator, and once you see it the whole series clicks shut: every layer above produces intent, and the integration is where that intent finally lands somewhere you can run it.
+That is why integrations come now. We have been working down the stack: bundles compose, extensions add, presets customize. But all three of those operate in Spec Kit's own vocabulary — a `speckit.plan` command, a `plan-template.md`. None of that means anything to GitHub Copilot or Claude Code or Gemini CLI until it has been translated into *their* conventions. The integration is the translator, and once you see it the whole series clicks shut: every layer above produces intent, and the integration is where that intent finally lands somewhere you can run it.
 
 ## What an integration is for
 
 Spec Kit is deliberately agent-agnostic. The core loop, the extensions, the presets — none of them assume which AI coding agent you use. That neutrality is a feature: it is what lets the same spec-driven workflow run on more than thirty different agents. But neutrality has to be cashed out somewhere, because those agents agree on almost nothing about how commands are stored and invoked.
 
-Claude Code wants skills in `.claude/skills` and context in `CLAUDE.md`. Gemini CLI wants commands in `.gemini/commands` and context in `GEMINI.md`. Codex installs skills into `.agents/skills` and invokes them as `$speckit-<command>`; Zed uses the same directory but invokes them as `/speckit-<command>`. Some agents are CLI tools, some are IDE plugins, some are both. An **integration** is the adapter that knows all of this for one agent — the command file format, the context rules, the directory layout, the invocation style — so that when you run `specify init`, the CLI lays down exactly the files that agent will recognize and you can start doing Spec-Driven Development immediately, whatever tool you prefer.
+GitHub Copilot installs skills into `.github/skills` and invokes them as `/speckit-<command>`. Claude Code instead wants skills in `.claude/skills` and context in `CLAUDE.md`; Gemini CLI wants commands in `.gemini/commands` and context in `GEMINI.md`. Codex and Zed even share the `.agents/skills` directory yet invoke their commands differently — `$speckit-<command>` for one, `/speckit-<command>` for the other. Some agents are CLI tools, some are IDE plugins, some are both. An **integration** is the adapter that knows all of this for one agent — the command file format, the context rules, the directory layout, the invocation style — so that when you run `specify init`, the CLI lays down exactly the files that agent will recognize and you can start doing Spec-Driven Development immediately, whatever tool you prefer.
 
 That is the cleanest way I have found to think about it: extensions and presets decide *what* commands exist and *how they behave*; the integration decides *what form they take and where they live* so your particular agent can see them at all.
 
@@ -19,7 +19,7 @@ That is the cleanest way I have found to think about it: extensions and presets 
 The most common way you meet an integration is at the very start, when you scaffold a project:
 
 ```bash
-specify init my-project --integration claude
+specify init my-project --integration copilot --integration-options="--skills"
 ```
 
 But integrations are first-class primitives with a full lifecycle of their own, managed inside an already-initialized project:
@@ -53,7 +53,7 @@ This is the same layering philosophy the earlier posts kept hitting — the syst
 
 ## More than one agent at a time
 
-You are not limited to a single integration. A project can carry several, which matters for team portability: one developer drives the workflow through Claude Code, another through Gemini CLI, and the repository serves both. Spec Kit tracks one **default integration** in `.specify/integration.json` alongside the full list of installed ones, and `use`/`switch` is how you move the default around.
+You are not limited to a single integration. A project can carry several, which matters for team portability: one developer drives the workflow through GitHub Copilot, another through Claude Code, and the repository serves both. Spec Kit tracks one **default integration** in `.specify/integration.json` alongside the full list of installed ones, and `use`/`switch` is how you move the default around.
 
 The catch is that two agents writing into the same project can step on each other, so Spec Kit only allows multi-install automatically when every integration involved is declared **multi-install safe** — meaning it uses isolated agent directories, a dedicated context file that does not collide with another safe integration, and a separate install manifest. Agents that share a context file or command directory are not safe by default; you can still install them side by side, but you have to pass `--force` to acknowledge that the agents may see each other's instructions. Either way, the shared Spec Kit templates stay aligned to the single default integration, so the core never tries to speak two dialects at once.
 
@@ -67,7 +67,7 @@ The built-in integrations for the major agents ship with Spec Kit itself, which 
 
 It is worth being precise about how integrations relate to the resolution stack from the last post, because they are not another layer in it. Presets and extensions and project overrides all compete *within* one stack to decide which version of a file wins. The integration sits at the end of that pipeline: once resolution has picked the winning template, the integration decides what format it is rendered into and which directory it is written to. Resolution answers "which content"; the integration answers "in whose dialect, and where."
 
-That separation is what lets everything else stay agent-agnostic. An extension author never has to think about Claude versus Gemini, because the integration absorbs that difference downstream. The whole stack above can speak one neutral language precisely because exactly one layer at the bottom is responsible for translation.
+That separation is what lets everything else stay agent-agnostic. An extension author never has to think about Copilot versus Claude, because the integration absorbs that difference downstream. The whole stack above can speak one neutral language precisely because exactly one layer at the bottom is responsible for translation.
 
 ## Why I like this design
 
