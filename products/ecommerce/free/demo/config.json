@@ -1,7 +1,0 @@
-{
-  "orderEmail": "orders@store.example.com",
-  "welcomeTitle": "Welcome to your free E-commerce store",
-  "welcomeContent": "You should read our instructions for light customization",
-  "navbarTitle": "Manorrock E-Commerce Free",
-  "routerType": "hash"
-}
