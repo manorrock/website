@@ -85,15 +85,27 @@ steps:
 
 Read past the syntax and the shape is a directed graph. The `command` steps are the same `speckit.*` verbs Part 5 dissected — here they are nodes rather than things you type. Between them sit two `gate` steps, and those are the whole reason this is a workflow and not a script: the run does not barrel from spec to plan to code. It stops, twice, and asks a human to look. That is the execution flow it describes:
 
-```mermaid
-flowchart TB
-    A["specify<br/>(command)"] --> B{"review-spec<br/>(gate)"}
-    B -- approve --> C["plan<br/>(command)"]
-    B -- reject --> X1["⏹ Abort"]
-    C --> D{"review-plan<br/>(gate)"}
-    D -- approve --> E["tasks<br/>(command)"]
-    D -- reject --> X2["⏹ Abort"]
-    E --> F["implement<br/>(command)"]
+```text
+  specify (command)
+        │
+        ▼
+  review-spec (gate) ──reject──▶ ⏹ abort
+        │
+     approve
+        │
+        ▼
+  plan (command)
+        │
+        ▼
+  review-plan (gate) ──reject──▶ ⏹ abort
+        │
+     approve
+        │
+        ▼
+  tasks (command)
+        │
+        ▼
+  implement (command)
 ```
 
 I want to flag the `integration:` field, because it is a quiet callback to Part 4. Each command step names the agent it should run through, and `"{{ inputs.integration }}"` means the *same* workflow runs on Copilot, Claude, or Gemini depending on one input. The workflow is written in Spec Kit's neutral vocabulary; the integration translates each step into the agent's dialect at run time. Every layer in this series really does keep showing up in the next.
