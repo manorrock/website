@@ -8,6 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
+- [Six Months of Spec Kit - What Lead Maintainer Actually Felt Like (July 22nd, 2026)](2026/07/22/six_months_leading_spec_kit.html)
 - [Pulse on AI - June 2026 (July 15th, 2026)](2026/07/15/pulse_on_ai_june_2026.html)
 - [Pulse on .NET - June 2026 (July 14th, 2026)](2026/07/14/pulse_on_dot_net_june_2026.html)
 - [Spec Kit, Part 12: The Road Ahead - Where the Project Is Heading (July 14th, 2026)](2026/07/14/spec_kit_road_ahead.html)
