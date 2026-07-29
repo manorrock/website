@@ -8,6 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
+- [Spec Kit Learnings from a Real-World SDD Experiment - Vidocq (July 29th, 2026)](2026/07/29/spec_kit_sdd_in_practice.html)
 - [The Spec Kit Copilot Plugin - Driving the Kit Without Leaving the Agent (July 24th, 2026)](2026/07/24/spec_kit_copilot.html)
 - [Six Months of Spec Kit - What Lead Maintainer Actually Felt Like (July 22nd, 2026)](2026/07/22/six_months_leading_spec_kit.html)
 - [Pulse on AI - June 2026 (July 15th, 2026)](2026/07/15/pulse_on_ai_june_2026.html)
