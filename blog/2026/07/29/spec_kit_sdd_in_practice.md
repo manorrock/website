@@ -1,4 +1,4 @@
-# Practicing Spec-Driven Development Without Spec Kit — What Vidocq Learned
+# Spec Kit Learnings from a Real-World SDD Experiment — Vidocq
 
 *A look at a real, large-scale Spec-Driven Development experiment — the [Vidocq](https://www.linkedin.com/pulse/spec-driven-development-practice-interview-creators-vidocq-goncalves-8tqjf/) runtime — and what its lessons mean for anyone using [Spec Kit](https://github.com/github/spec-kit).*
 
