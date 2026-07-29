@@ -42,7 +42,7 @@ Read those lessons next to Spec Kit and something striking emerges: a team pract
 - *Trace everything* is precisely why Spec Kit keeps `spec.md`, `plan.md`, and `tasks.md` versioned in the repo — the artifacts *are* the paper trail, not scratch files you delete.
 - *Guard against doc rot* is the standing risk for any of those artifacts once the code moves on without them.
 
-The one lesson Spec Kit cannot hand you is the executable oracle. Vidocq had a rare luxury there — a TCK that made "done" a binary fact — and that gap is exactly why, when asked why they did not use Spec Kit, they answered:
+The one lesson Spec Kit cannot hand you is the executable oracle. Vidocq had a rare luxury there — a TCK that made "done" a binary fact — and that luxury is exactly why, when the interviewer asked whether they had looked at Spec Kit, they said they had not seriously:
 
 > "Those tools mostly solve the problem of writing a good spec when you don't have one. We had the opposite luxury."
 
@@ -50,7 +50,7 @@ That is not a knock on Spec Kit; it is a clean statement of what Spec Kit is *fo
 
 ## Why their report matters
 
-It would be easy to discount a glowing "we used the tool and shipped" post. Vidocq is more useful precisely because it is *not* that. Here is a team that understood Spec Kit well enough to explain what it is for, decided their situation did not need it, and then — practicing SDD by hand — rediscovered nearly every principle the toolkit encodes: spec before code, a binary oracle, verifiable constraints, audited compliance, human-owned design, traceable decisions, doc rot as a real hazard.
+It would be easy to discount a glowing "we used the tool and shipped" post. Vidocq is more useful precisely because it is *not* that. Here is a team that did not reach for Spec Kit at all — they judged that those tools solve a problem, writing a good spec, they did not have — and then, practicing SDD by hand, rediscovered nearly every principle the toolkit encodes: spec before code, a binary oracle, verifiable constraints, audited compliance, human-owned design, traceable decisions, doc rot as a real hazard.
 
 That is the outcome you hope for when you believe in an idea rather than a product: people who solve the same problem independently end up standing in the same place. Spec Kit is a good on-ramp to Spec-Driven Development when you start from a blank repo and a vague idea. Vidocq is a reminder of where that road leads when you walk it far enough — and how much of what they learned the hard way is already sitting in the kit, waiting to be turned on.
 
