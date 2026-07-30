@@ -2,11 +2,11 @@
 
 *A look at a real, large-scale Spec-Driven Development experiment — the [Vidocq](https://www.linkedin.com/pulse/spec-driven-development-practice-interview-creators-vidocq-goncalves-8tqjf/) runtime — and what its lessons mean for anyone using [Spec Kit](https://github.com/github/spec-kit).*
 
-Most of what gets written about AI-assisted development is either a breathless demo or a warning. What is rare is a careful field report from a team that ran a disciplined process at real scale and wrote down, honestly, what worked and what quietly went wrong. The [Vidocq interview](https://www.linkedin.com/pulse/spec-driven-development-practice-interview-creators-vidocq-goncalves-8tqjf/) is exactly that, which is why it is worth a close read.
+Most of what gets written about AI-assisted development is either a breathless demo or a warning. What is rare is a careful field report from a team that ran a disciplined process at real scale and wrote down, honestly, what worked and what quietly went wrong. The [Vidocq interview](https://www.linkedin.com/pulse/spec-driven-development-practice-interview-creators-vidocq-goncalves-8tqjf/) done by [Antonio Goncalves](https://www.linkedin.com/in/agoncal/) is exactly that, which is why it is worth a close read.
 
 ## The interview
 
-Antoine Sabot-Durand and Yann Blazart built **Vidocq**, a from-scratch Jakarta EE Core Profile 11 + MicroProfile 7.1 runtime, in roughly three and a half months — pure Java 25, zero dependencies — as a deliberate **Spec-Driven Development** experiment. The interview is their account of how they did it, and their method stood on three legs:
+[Antoine Sabot-Durand](https://www.linkedin.com/in/antoinesabotdurand/) and [Yann Blazart](https://www.linkedin.com/in/yblazart/) built **Vidocq**, a from-scratch Jakarta EE Core Profile 11 + MicroProfile 7.1 runtime, in roughly three and a half months — pure Java 25, zero dependencies — as a deliberate **Spec-Driven Development** experiment. The interview is their account of how they did it, and their method stood on three legs:
 
 1. **A formal spec as the requirements.** The twenty-year-old Jakarta and MicroProfile specifications — untouchable, unambiguous, versioned. Not a document they drafted and revised, but a contract held fixed.
 2. **An executable oracle.** The TCK — thousands of tests as a single binary pass/fail gate, which they called "the only reviewer that never gets tired." The AI was never allowed to *declare* a feature done; the suite is green or it is not.
