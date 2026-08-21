@@ -8,6 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
+- [Spec Kit Turns One - and Ships 1.0.0 (August 21st, 2026)](2026/08/21/spec_kit_turns_one.html)
 - [Pulse on AI - July 2026 (August 19th, 2026)](2026/08/19/pulse_on_ai_july_2026.html)
 - [Pulse on .NET - July 2026 (August 14th, 2026)](2026/08/14/pulse_on_dot_net_july_2026.html)
 - [Pulse on Java - July 2026 (August 13th, 2026)](2026/08/13/pulse_on_java_july_2026.html)
