@@ -8,6 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
+- [Spec Kit's Mean Time to Stale - How Ken and the Data Talked Me Out of My Own Policy (September 10th, 2026)](2026/09/10/spec_kit_mean_time_to_stale.html)
 - [Spec Kit Goes AI Source - When Your Contributors Are Agents (September 8th, 2026)](2026/09/08/spec_kit_ai_source.html)
 - [A Year of Spec Kit - Notes from Washington (August 31st, 2026)](2026/08/31/spec_kit_one_year_in_washington.html)
 - [Spec Kit Turns One - and Ships 1.0.0 (August 21st, 2026)](2026/08/21/spec_kit_turns_one.html)
