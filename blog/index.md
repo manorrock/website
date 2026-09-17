@@ -8,6 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
+- [Pulse on Java - August 2026 (September 17th, 2026)](2026/09/17/pulse_on_java_august_2026.html)
 - [Am I Still an IC? - Managing Spec Kit, and the Agent in the Middle (September 16th, 2026)](2026/09/16/spec_kit_still_an_ic.html)
 - [Spec Kit and the README That Talked Back (September 15th, 2026)](2026/09/15/spec_kit_and_the_readme_that_talked_back.html)
 - [Spec Kit's Mean Time to Stale - How Ken and the Data Talked Me Out of My Own Policy (September 10th, 2026)](2026/09/10/spec_kit_mean_time_to_stale.html)
