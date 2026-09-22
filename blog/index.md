@@ -8,6 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
+- [Pulse on AI - August 2026 (September 22nd, 2026)](2026/09/22/pulse_on_ai_august_2026.html)
 - [Spec Kit, Part 13: Events - When the Agent Calls Back (September 21st, 2026)](2026/09/21/spec_kit_events.html)
 - [Pulse on .NET - August 2026 (September 18th, 2026)](2026/09/18/pulse_on_dot_net_august_2026.html)
 - [Pulse on Java - August 2026 (September 17th, 2026)](2026/09/17/pulse_on_java_august_2026.html)
