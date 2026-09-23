@@ -8,6 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
+- [Spec Kit, Part 14: Artifacts - Seeing What the Layers Actually Built (September 23rd, 2026)](2026/09/23/spec_kit_artifacts.html)
 - [Pulse on AI - August 2026 (September 22nd, 2026)](2026/09/22/pulse_on_ai_august_2026.html)
 - [Spec Kit, Part 13: Events - When the Agent Calls Back (September 21st, 2026)](2026/09/21/spec_kit_events.html)
 - [Pulse on .NET - August 2026 (September 18th, 2026)](2026/09/18/pulse_on_dot_net_august_2026.html)
