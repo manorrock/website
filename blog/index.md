@@ -8,6 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
+- [Spec Kit with Copilot, Part 2: Sub-Agents - Distributing the Process Without Replacing It (September 25th, 2026)](2026/09/25/spec_kit_copilot_sub_agents.html)
 - [Spec Kit, Part 15: Workflow Overlays and Slots - Editing the Graph Without Forking It (September 24th, 2026)](2026/09/24/spec_kit_workflow_overlays_and_slots.html)
 - [Spec Kit, Part 14: Artifacts - Seeing What the Layers Actually Built (September 23rd, 2026)](2026/09/23/spec_kit_artifacts.html)
 - [Pulse on AI - August 2026 (September 22nd, 2026)](2026/09/22/pulse_on_ai_august_2026.html)
@@ -24,7 +25,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 - [Pulse on .NET - July 2026 (August 14th, 2026)](2026/08/14/pulse_on_dot_net_july_2026.html)
 - [Pulse on Java - July 2026 (August 13th, 2026)](2026/08/13/pulse_on_java_july_2026.html)
 - [Spec Kit Learnings from a Real-World SDD Experiment - Vidocq (July 29th, 2026)](2026/07/29/spec_kit_sdd_in_practice.html)
-- [The Spec Kit Copilot Plugin - Driving the Kit Without Leaving the Agent (July 24th, 2026)](2026/07/24/spec_kit_copilot.html)
+- [Spec Kit with Copilot, Part 1: Driving the Kit Without Leaving the Agent (July 24th, 2026)](2026/07/24/spec_kit_copilot.html)
 - [Six Months of Spec Kit - What Lead Maintainer Actually Felt Like (July 22nd, 2026)](2026/07/22/six_months_leading_spec_kit.html)
 - [Pulse on AI - June 2026 (July 15th, 2026)](2026/07/15/pulse_on_ai_june_2026.html)
 - [Pulse on .NET - June 2026 (July 14th, 2026)](2026/07/14/pulse_on_dot_net_june_2026.html)

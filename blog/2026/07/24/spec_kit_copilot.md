@@ -1,6 +1,6 @@
-# The Spec Kit Copilot Plugin — Driving the Kit Without Leaving the Agent
+# Spec Kit with Copilot, Part 1: Driving the Kit Without Leaving the Agent
 
-*A companion to the [Spec Kit series](../../06/26/spec_kit_bundles.html). No part number on this one — the twelve-part arc was about the agent-agnostic kit, and this is about the Copilot bridge that sits beside it.*
+*The first entry in a dedicated Copilot companion series to the agent-agnostic [Spec Kit series](../../06/26/spec_kit_bundles.html).*
 
 The [series](../../06/26/spec_kit_bundles.html) I just finished spent twelve posts on [Spec Kit](https://github.com/github/spec-kit) the way it is designed to be described: agent-agnostic. The whole point of [Part 4](../01/spec_kit_integrations.html) was that the kit does not care which AI coding agent you run — it renders its process into whatever dialect your agent speaks. That is the right way to think about the core project, and I stand behind it.
 
