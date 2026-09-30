@@ -1,6 +1,6 @@
 # Spec Kit with Copilot, Part 4: The Spec Kit Wizard
 
-*The fourth and final entry in a dedicated series about the Copilot-specific pieces around [Spec Kit](https://github.com/github/spec-kit), following [Part 1: Driving the Kit Without Leaving the Agent](../../07/24/spec_kit_copilot.html), [Part 2: Sub-Agents](../25/spec_kit_copilot_sub_agents.html), and [Part 3: The SDD Canvas](../29/spec_kit_copilot_sdd_canvas.html).*
+*The fourth and final entry in a dedicated series about the Copilot-specific pieces around [Spec Kit](https://github.com/github/spec-kit), following [Part 1: Driving the Kit Without Leaving the Agent](../../07/24/spec_kit_copilot.html), [Part 2: Sub-Agents](../../09/25/spec_kit_copilot_sub_agents.html), and [Part 3: The SDD Canvas](../../09/30/spec_kit_copilot_sdd_canvas.html).*
 
 Part 1 brought Spec Kit's management surface into Copilot. Instead of leaving the agent to install an extension, add a preset, initialize a project, or upgrade the CLI, Copilot could use the `spec-kit-copilot` skills to drive the real `specify` commands on the user's behalf.
 
@@ -72,7 +72,7 @@ The screenshot shows why this is more than an installed-items page. The left sid
 
 For `speckit.specify`, for example, core remains the fallback, one preset may replace the command, another may prepend guidance, and an extension may attach a hook. Those are not four unrelated files. Together they are the command Copilot will actually receive.
 
-This is the visual counterpart to the [agent-agnostic articles on presets](../../06/30/spec_kit_presets.html), [extensions](../../06/29/spec_kit_extensions.html), and [workflow overlays and slots](../24/spec_kit_workflow_overlays_and_slots.html). Those posts described composition as a mechanism. The Wizard lets a user inspect the resolved result before running it.
+This is the visual counterpart to the [agent-agnostic articles on presets](../../06/30/spec_kit_presets.html), [extensions](../../06/29/spec_kit_extensions.html), and [workflow overlays and slots](../../09/24/spec_kit_workflow_overlays_and_slots.html). Those posts described composition as a mechanism. The Wizard lets a user inspect the resolved result before running it.
 
 It also gives Part 2 a concrete place in the stack. The `copilot-sub-agents` preset is no longer merely an installation fact. Its prepend strategy is visible beside the core command it modifies. The user can see that delegation guidance layers onto the command rather than replacing the entire SDD process.
 
@@ -171,4 +171,4 @@ If you try the Spec Kit Wizard, I would like to hear which part of the kit becam
 
 ---
 
-*Further reading: [Part 1: Driving the Kit Without Leaving the Agent](../../07/24/spec_kit_copilot.html), [Part 2: Sub-Agents](../25/spec_kit_copilot_sub_agents.html), [Part 3: The SDD Canvas](../29/spec_kit_copilot_sdd_canvas.html), the pinned [Spec Kit Wizard README](https://github.com/github/spec-kit-copilot/blob/0e7999502bf48785e9164ca3021c26e7d696e731/plugins/spec-kit-copilot-wizard/extensions/speckit-wizard-canvas/README.md), its [plugin manifest](https://github.com/github/spec-kit-copilot/blob/0e7999502bf48785e9164ca3021c26e7d696e731/plugins/spec-kit-copilot-wizard/plugin.json), [Spec Kit, Part 2: Extensions](../../06/29/spec_kit_extensions.html), [Spec Kit, Part 3: Presets](../../06/30/spec_kit_presets.html), [Spec Kit, Part 5: The Spec-Driven Process](../../07/02/spec_kit_process.html), and [Spec Kit, Part 14: Artifacts](../23/spec_kit_artifacts.html).*
+*Further reading: [Part 1: Driving the Kit Without Leaving the Agent](../../07/24/spec_kit_copilot.html), [Part 2: Sub-Agents](../../09/25/spec_kit_copilot_sub_agents.html), [Part 3: The SDD Canvas](../../09/30/spec_kit_copilot_sdd_canvas.html), the pinned [Spec Kit Wizard README](https://github.com/github/spec-kit-copilot/blob/0e7999502bf48785e9164ca3021c26e7d696e731/plugins/spec-kit-copilot-wizard/extensions/speckit-wizard-canvas/README.md), its [plugin manifest](https://github.com/github/spec-kit-copilot/blob/0e7999502bf48785e9164ca3021c26e7d696e731/plugins/spec-kit-copilot-wizard/plugin.json), [Spec Kit, Part 2: Extensions](../../06/29/spec_kit_extensions.html), [Spec Kit, Part 3: Presets](../../06/30/spec_kit_presets.html), [Spec Kit, Part 5: The Spec-Driven Process](../../07/02/spec_kit_process.html), and [Spec Kit, Part 14: Artifacts](../../09/23/spec_kit_artifacts.html).*
