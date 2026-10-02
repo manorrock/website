@@ -8,7 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
-- [Spec Kit with Copilot, Part 4: The Spec Kit Wizard (October 2nd, 2026)](2026/10/02/spec_kit_copilot_wizard.html)
+- [Spec Kit with Copilot, Part 4: The Spec Kit Wizard (October 5th, 2026)](2026/10/05/spec_kit_copilot_wizard.html)
 - [Spec Kit with Copilot, Part 3: The SDD Canvas (September 30th, 2026)](2026/09/30/spec_kit_copilot_sdd_canvas.html)
 - [Spec Kit's Agentic SDLC - No Single Route, No Single Actor (September 28th, 2026)](2026/09/28/spec_kit_agentic_sdlc.html)
 - [Spec Kit with Copilot, Part 2: Sub-Agents - Distributing the Process Without Replacing It (September 25th, 2026)](2026/09/25/spec_kit_copilot_sub_agents.html)
