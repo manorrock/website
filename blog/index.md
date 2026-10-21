@@ -8,7 +8,8 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
-- [Pulse on .NET - September 2026 (October 19th, 2026)](2026/10/20/pulse_on_dotnet_september_2026.html)
+- [Pulse on AI - September 2026 (October 21st, 2026)](2026/10/21/pulse_on_ai_september_2026.html)
+- [Pulse on .NET - September 2026 (October 20th, 2026)](2026/10/20/pulse_on_dotnet_september_2026.html)
 - [Pulse on Java - September 2026 (October 19th, 2026)](2026/10/19/pulse_on_java_september_2026.html)
 - [Spec Kit with Copilot, Part 3: The SDD Canvas (September 30th, 2026)](2026/09/30/spec_kit_copilot_sdd_canvas.html)
 - [Spec Kit's Agentic SDLC - No Single Route, No Single Actor (September 28th, 2026)](2026/09/28/spec_kit_agentic_sdlc.html)
