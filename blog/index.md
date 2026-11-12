@@ -8,6 +8,7 @@ Comments are welcomed send an email to blog (at) manorrock.com.
 
 ## 2026
 
+- [From 1.0.0 to 150K - The Kit Kept Moving (November 12th, 2026)](2026/11/12/spec_kit_150k_stars.html)
 - [Pulse on AI - September 2026 (October 21st, 2026)](2026/10/21/pulse_on_ai_september_2026.html)
 - [Pulse on .NET - September 2026 (October 20th, 2026)](2026/10/20/pulse_on_dotnet_september_2026.html)
 - [Pulse on Java - September 2026 (October 19th, 2026)](2026/10/19/pulse_on_java_september_2026.html)
