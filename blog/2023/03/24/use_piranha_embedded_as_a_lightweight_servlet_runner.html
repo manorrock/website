@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Use Piranha Embedded as a light-weight Servlet runner</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../../../manorrock.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css" type="text/css"/>
+        <script src="http:////cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-10893862-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <h1>Use Piranha Embedded as a light-weight Servlet runner</h1>
+        <p>
+            Running a Servlet using Piranha is very easy and fun! For this blog
+            entry we will show you how you can use Piranha Embedded, coupled with the
+            DefaultHttpServer to run a HelloWorldServlet.
+        </p>
+        <p>
+            Follow steps mentioned below.
+        </p>
+        <ol>
+            <li>Write the HelloWorldServlet</li>
+            <li>Create the HelloWorldAppplication</li>
+            <li>Add the module-info</li>
+            <li>Add the POM file</li>
+            <li>Build JLink image</li>
+        </ol>
+        <h2>Write the HelloWorldServlet</h2>
+        <p>
+            The code for the HelloWorldServlet will be similar to the snippet
+            below.
+        </p>
+        <!-- Syntax highlighting courtsey of https://pinetools.com/syntax-highlighter -->
+        <!--pre>
+
+package helloworld;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class HelloWorldServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, 
+            HttpServletResponse response) throws IOException, ServletException {
+        PrintWriter writer = response.getWriter();
+        writer.println("Hello World");
+    }
+}
+
+        </pre-->
+
+<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(240, 240, 240); color: rgb(68, 68, 68);"><span class="hljs-keyword" style="font-weight: 700;">package</span> helloworld;
+
+<span class="hljs-keyword" style="font-weight: 700;">import</span> jakarta.servlet.ServletException;
+<span class="hljs-keyword" style="font-weight: 700;">import</span> jakarta.servlet.http.HttpServlet;
+<span class="hljs-keyword" style="font-weight: 700;">import</span> jakarta.servlet.http.HttpServletRequest;
+<span class="hljs-keyword" style="font-weight: 700;">import</span> jakarta.servlet.http.HttpServletResponse;
+<span class="hljs-keyword" style="font-weight: 700;">import</span> java.io.IOException;
+<span class="hljs-keyword" style="font-weight: 700;">import</span> java.io.PrintWriter;
+
+<span class="hljs-keyword" style="font-weight: 700;">public</span> <span class="hljs-class"><span class="hljs-keyword" style="font-weight: 700;">class</span> <span class="hljs-title" style="color: rgb(136, 0, 0); font-weight: 700;">HelloWorldServlet</span> <span class="hljs-keyword" style="font-weight: 700;">extends</span> <span class="hljs-title" style="color: rgb(136, 0, 0); font-weight: 700;">HttpServlet</span> </span>{
+
+    <span class="hljs-meta" style="color: rgb(31, 113, 153);">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword" style="font-weight: 700;">protected</span> <span class="hljs-keyword" style="font-weight: 700;">void</span> <span class="hljs-title" style="color: rgb(136, 0, 0); font-weight: 700;">doGet</span><span class="hljs-params">(HttpServletRequest request, 
+            HttpServletResponse response)</span> <span class="hljs-keyword" style="font-weight: 700;">throws</span> IOException, ServletException </span>{
+        PrintWriter writer = response.getWriter();
+        writer.println(<span class="hljs-string" style="color: rgb(136, 0, 0);">"Hello World"</span>);
+    }
+}
+</pre>
+        
+        <h2>Create the HelloWorldApplication</h2>
+        <p>
+            The code for the HelloWorldApplication class will be similar to the snippet
+            below.
+        </p>
+        <!-- Syntax highlighting courtsey of https://pinetools.com/syntax-highlighter -->
+        <!--pre>
+
+package helloworld;
+
+import cloud.piranha.embedded.EmbeddedPiranha;
+import cloud.piranha.embedded.EmbeddedPiranhaBuilder;
+import cloud.piranha.http.impl.DefaultHttpServer;
+import cloud.piranha.http.webapp.HttpWebApplicationServerProcessor;
+
+public class HelloWorldApplication {
+
+    public static void main(String[] arguments) throws Exception {
+        EmbeddedPiranha piranha = new EmbeddedPiranhaBuilder()
+                .servlet("HelloWorld", HelloWorldServlet.class)
+                .servletMapping("HelloWorld", "/*")
+                .buildAndStart();
+        
+        DefaultHttpServer server = new DefaultHttpServer(8080, 
+                new HttpWebApplicationServerProcessor(piranha), false);
+        
+        server.start();
+    }
+}
+        </pre-->
+<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(240, 240, 240); color: rgb(68, 68, 68);"><span class="hljs-keyword" style="font-weight: 700;">package</span> helloworld;
+
+<span class="hljs-keyword" style="font-weight: 700;">import</span> cloud.piranha.embedded.EmbeddedPiranha;
+<span class="hljs-keyword" style="font-weight: 700;">import</span> cloud.piranha.embedded.EmbeddedPiranhaBuilder;
+<span class="hljs-keyword" style="font-weight: 700;">import</span> cloud.piranha.http.impl.DefaultHttpServer;
+<span class="hljs-keyword" style="font-weight: 700;">import</span> cloud.piranha.http.webapp.HttpWebApplicationServerProcessor;
+
+<span class="hljs-keyword" style="font-weight: 700;">public</span> <span class="hljs-class"><span class="hljs-keyword" style="font-weight: 700;">class</span> <span class="hljs-title" style="color: rgb(136, 0, 0); font-weight: 700;">HelloWorldApplication</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword" style="font-weight: 700;">public</span> <span class="hljs-keyword" style="font-weight: 700;">static</span> <span class="hljs-keyword" style="font-weight: 700;">void</span> <span class="hljs-title" style="color: rgb(136, 0, 0); font-weight: 700;">main</span><span class="hljs-params">(String[] arguments)</span> <span class="hljs-keyword" style="font-weight: 700;">throws</span> Exception </span>{
+        EmbeddedPiranha piranha = <span class="hljs-keyword" style="font-weight: 700;">new</span> EmbeddedPiranhaBuilder()
+                .servlet(<span class="hljs-string" style="color: rgb(136, 0, 0);">"HelloWorld"</span>, HelloWorldServlet.class)
+                .servletMapping(<span class="hljs-string" style="color: rgb(136, 0, 0);">"HelloWorld"</span>, <span class="hljs-string" style="color: rgb(136, 0, 0);">"/*"</span>)
+                .buildAndStart();
+        
+        DefaultHttpServer server = <span class="hljs-keyword" style="font-weight: 700;">new</span> DefaultHttpServer(<span class="hljs-number" style="color: rgb(136, 0, 0);">8080</span>, 
+                <span class="hljs-keyword" style="font-weight: 700;">new</span> HttpWebApplicationServerProcessor(piranha), <span class="hljs-keyword" style="font-weight: 700;">false</span>);
+        
+        server.start();
+    }
+}
+</pre>
+        <p>
+            Note you can swap out DefaultHttpServer with Grizzly, JDK HTTP
+            server, Undertow or Netty. All it takes is using the appropriate
+            module and adjusting the class name.
+        </p>
+        <h2>Add the module-info</h2>
+        <p>
+
+        </p>
+        <!-- Syntax highlighting courtsey of https://pinetools.com/syntax-highlighter -->
+        <!--pre>
+
+module helloworld {
+
+    exports helloworld;
+    requires cloud.piranha.embedded;
+    requires cloud.piranha.http.api;
+    requires cloud.piranha.http.impl;
+    requires cloud.piranha.http.webapp;
+    requires jakarta.servlet;
+}
+            
+        </pre-->
+<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(240, 240, 240); color: rgb(68, 68, 68);"><span class="hljs-keyword" style="font-weight: 700;">module</span> helloworld {
+
+    <span class="hljs-keyword" style="font-weight: 700;">exports</span> helloworld;
+    <span class="hljs-keyword" style="font-weight: 700;">requires</span> cloud.piranha.embedded;
+    <span class="hljs-keyword" style="font-weight: 700;">requires</span> cloud.piranha.http.api;
+    <span class="hljs-keyword" style="font-weight: 700;">requires</span> cloud.piranha.http.impl;
+    <span class="hljs-keyword" style="font-weight: 700;">requires</span> cloud.piranha.http.webapp;
+    <span class="hljs-keyword" style="font-weight: 700;">requires</span> jakarta.servlet;
+}
+</pre>        
+        <h2>Add the POM file</h2>
+        <p>
+            The POM file below contains the plumbing to build the project using Maven.
+        </p>
+        <!-- Syntax highlighting courtsey of https://pinetools.com/syntax-highlighter -->
+        <!--pre>
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>embedded</groupId>
+    <artifactId>servlet-runner</artifactId>
+    <version>1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Piranha Embedded Servlet runner application</name>
+    <properties>
+        <piranha.version>23.1.0</piranha.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <release>17</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/modules</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>helloworld.HelloWorldApplication</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>helloworld.HelloWorldApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin> 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/modules</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>${project.build.directory}</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>*.jar</include>
+                                    </includes>
+                                </resource>
+                            </resources>              
+                        </configuration>            
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.moditect</groupId>
+                <artifactId>moditect-maven-plugin</artifactId>
+                <version>1.0.0.RC1</version>
+                <executions>
+                    <execution>
+                        <id>create-runtime-image</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>create-runtime-image</goal>
+                        </goals>
+                        <configuration>
+                            <modulePath>
+                                <path>${project.build.directory}/modules</path>
+                            </modulePath>
+                            <modules>
+                                <module>helloworld</module>
+                            </modules>
+                            <launcher>
+                                <name>helloworld</name>
+                                <module>helloworld</module>
+                            </launcher>
+                            <noManPages>true</noManPages>
+                            <noHeaderFiles>true</noHeaderFiles>
+                            <compression>2</compression>
+                            <outputDirectory>${project.build.directory}/jlink</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>cloud.piranha</groupId>
+            <artifactId>piranha-embedded</artifactId>
+            <version>${piranha.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cloud.piranha.http</groupId>
+            <artifactId>piranha-http-impl</artifactId>
+            <version>${piranha.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cloud.piranha.http</groupId>
+            <artifactId>piranha-http-webapp</artifactId>
+            <version>${piranha.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>            
+
+        </pre-->
+        
+<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(240, 240, 240); color: rgb(68, 68, 68);"><span class="php"><span class="hljs-meta" style="color: rgb(31, 113, 153);">&lt;?</span>xml version=<span class="hljs-string" style="color: rgb(136, 0, 0);">"1.0"</span> encoding=<span class="hljs-string" style="color: rgb(136, 0, 0);">"UTF-8"</span><span class="hljs-meta" style="color: rgb(31, 113, 153);">?&gt;</span></span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string" style="color: rgb(136, 0, 0);">"http://maven.apache.org/POM/4.0.0"</span>
+         <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string" style="color: rgb(136, 0, 0);">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string" style="color: rgb(136, 0, 0);">"http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">modelVersion</span>&gt;</span>4.0.0<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">modelVersion</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>embedded<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>servlet-runner<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>1-SNAPSHOT<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">packaging</span>&gt;</span>jar<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">packaging</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">name</span>&gt;</span>Piranha Embedded Servlet runner application<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">properties</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">piranha.version</span>&gt;</span>23.1.0<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">piranha.version</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">project.build.sourceEncoding</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">properties</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">build</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">plugins</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>3.10.1<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">release</span>&gt;</span>17<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">release</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>maven-dependency-plugin<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>3.4.0<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">executions</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">execution</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">id</span>&gt;</span>copy-dependencies<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">id</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">phase</span>&gt;</span>prepare-package<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">phase</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">goals</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">goal</span>&gt;</span>copy-dependencies<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">goal</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">goals</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">outputDirectory</span>&gt;</span>${project.build.directory}/modules<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">outputDirectory</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">execution</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">executions</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>org.codehaus.mojo<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>exec-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>3.0.0<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">mainClass</span>&gt;</span>helloworld.HelloWorldApplication<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">mainClass</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>maven-jar-plugin<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>3.3.0<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">archive</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">manifest</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">mainClass</span>&gt;</span>helloworld.HelloWorldApplication<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">mainClass</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">manifest</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">archive</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span> 
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>maven-resources-plugin<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>3.3.0<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">executions</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">execution</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">id</span>&gt;</span>copy-resources<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">id</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">phase</span>&gt;</span>verify<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">phase</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">goals</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">goal</span>&gt;</span>copy-resources<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">goal</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">goals</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">outputDirectory</span>&gt;</span>${project.build.directory}/modules<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">outputDirectory</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">resources</span>&gt;</span>          
+                                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">resource</span>&gt;</span>
+                                    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">directory</span>&gt;</span>${project.build.directory}<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">directory</span>&gt;</span>
+                                    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">filtering</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">filtering</span>&gt;</span>
+                                    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">includes</span>&gt;</span>
+                                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">include</span>&gt;</span>*.jar<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">include</span>&gt;</span>
+                                    <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">includes</span>&gt;</span>
+                                <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">resource</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">resources</span>&gt;</span>              
+                        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>            
+                    <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">execution</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">executions</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>org.moditect<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>moditect-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>1.0.0.RC1<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">executions</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">execution</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">id</span>&gt;</span>create-runtime-image<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">id</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">phase</span>&gt;</span>verify<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">phase</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">goals</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">goal</span>&gt;</span>create-runtime-image<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">goal</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">goals</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">modulePath</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">path</span>&gt;</span>${project.build.directory}/modules<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">path</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">modulePath</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">modules</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">module</span>&gt;</span>helloworld<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">module</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">modules</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">launcher</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">name</span>&gt;</span>helloworld<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">name</span>&gt;</span>
+                                <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">module</span>&gt;</span>helloworld<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">module</span>&gt;</span>
+                            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">launcher</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">noManPages</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">noManPages</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">noHeaderFiles</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">noHeaderFiles</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">compression</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">compression</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">outputDirectory</span>&gt;</span>${project.build.directory}/jlink<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">outputDirectory</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">configuration</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">execution</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">executions</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">plugin</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">plugins</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">build</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">dependencies</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>cloud.piranha<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>piranha-embedded<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>${piranha.version}<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">scope</span>&gt;</span>compile<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">scope</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>cloud.piranha.http<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>piranha-http-impl<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>${piranha.version}<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">scope</span>&gt;</span>compile<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">scope</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>cloud.piranha.http<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>piranha-http-webapp<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>${piranha.version}<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">version</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name" style="font-weight: 700;">scope</span>&gt;</span>compile<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">scope</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">dependencies</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name" style="font-weight: 700;">project</span>&gt;</span>            
+</pre>
+                    
+        <p>
+            The next step is to build the JLink image.
+        </p>
+        <pre>
+            
+mvn verify
+        </pre>
+        <p>
+            And voila the <code>jlink/target/jlink</code> directory will contain
+            the JLink native image. You now have a quick recipe to write Servlets
+            using Piranha Embedded.
+        </p>
+        <p>
+            Enjoy!
+        </p>
+        <p>
+            Posted March 24th, 2023
+        </p>
+        <p>
+            <a href="../../../index.html">Up</a>
+        </p>
+    </body>
+</html>
